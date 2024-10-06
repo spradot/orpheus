@@ -1,4 +1,8 @@
+import { kv } from '@vercel/kv';
+
 export async function getAccessToken(): Promise<string> {
+	const accessToken = await kv.get('accessToken');
+	if (accessToken && typeof accessToken === 'string') return accessToken;
 	const url = 'https://accounts.spotify.com/api/token';
 	const body = new URLSearchParams();
 	body.set('grant_type', 'client_credentials');
@@ -14,7 +18,8 @@ export async function getAccessToken(): Promise<string> {
 		body,
 	});
 	const data: AccessTokenResponse = await res.json();
-	console.log(data);
+	console.log('New Token Generated');
+	await kv.set('accessToken', data.access_token);
 	return data.access_token;
 }
 
