@@ -8,7 +8,8 @@ export interface GetRecommendationsResponse {
 
 export async function GET(request: Request) {
 	const artists = new URL(request.url).searchParams.get('artists');
-	const url = encodeURI(`https://api.spotify.com/v1/recommendations?seed_artists=${artists}`);
+	const genres = new URL(request.url).searchParams.get('genres');
+	const url = encodeURI(`https://api.spotify.com/v1/recommendations?seed_artists=${artists}&seed_genres=${genres}`);
 	const accessToken = await getAccessToken();
 	const res = await fetch(url, {
 		headers: {

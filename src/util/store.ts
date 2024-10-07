@@ -9,6 +9,9 @@ interface ArtistStore {
 
 	recommendedTracks: Array<Track>;
 	setRecommendedTracks: (tracks: Array<Track>) => void;
+
+	selectedGenres: Array<string>;
+	updateSelectedGenres: (genres: Array<string>) => void;
 }
 
 export const useZustandStore = create<ArtistStore>(set => ({
@@ -23,5 +26,10 @@ export const useZustandStore = create<ArtistStore>(set => ({
 	recommendedTracks: [],
 	setRecommendedTracks: tracks => {
 		set(() => ({ recommendedTracks: tracks }));
+	},
+
+	selectedGenres: [],
+	updateSelectedGenres: genres => {
+		set(() => ({ selectedGenres: genres }));
 	},
 }));
