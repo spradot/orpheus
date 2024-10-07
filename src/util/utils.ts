@@ -19,7 +19,7 @@ export async function getAccessToken(): Promise<string> {
 	});
 	const data: AccessTokenResponse = await res.json();
 	console.log('New Token Generated');
-	await kv.set('accessToken', data.access_token);
+	await kv.set('accessToken', data.access_token, { ex: data.expires_in });
 	return data.access_token;
 }
 
