@@ -6,12 +6,17 @@ export function SearchGenre({ genres }: SpotifyGenreResponse) {
 	const selectedGenres = useZustandStore(state => state.selectedGenres);
 	const updateSelectedGenres = useZustandStore(state => state.updateSelectedGenres);
 
+	const selectedArtists = useZustandStore(state => state.selectedArtists);
+	const selectedTracks = useZustandStore(state => state.selectedTracks);
+
+	const totalSelectionCount = selectedArtists.length + selectedGenres.length + selectedTracks.length;
+
 	const updateSelection = (genre: string) => {
 		if (selectedGenres.includes(genre)) {
 			const newSelection = selectedGenres.filter(g => g !== genre);
 			updateSelectedGenres(newSelection);
 		} else {
-			if (selectedGenres.length === 5) return;
+			if (totalSelectionCount >= 5) return;
 			updateSelectedGenres([...selectedGenres, genre]);
 		}
 	};
@@ -28,7 +33,7 @@ export function SearchGenre({ genres }: SpotifyGenreResponse) {
 					return (
 						<li
 							key={genre}
-							className={`cursor-pointer select-none rounded-md px-2 ${selectedGenres.includes(genre) ? 'bg-green-300 text-black' : 'outline-dashed outline-1 hover:bg-white/20 hover:outline hover:outline-1'}`}
+							className={`cursor-pointer select-none rounded-md px-2 ${selectedGenres.includes(genre) ? 'bg-green-300 text-black' : totalSelectionCount >= 5 ? 'cursor-default text-gray-500 outline-dashed outline-1 outline-gray-500' : 'outline-dashed outline-1 outline-gray-500 hover:bg-white/20 hover:outline hover:outline-1'}`}
 							onClick={() => updateSelection(genre)}
 						>
 							{genre}

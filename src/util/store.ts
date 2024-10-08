@@ -1,17 +1,20 @@
-import { type Artist } from '@/app/api/artists/route';
-import { type Track } from '@/app/api/recommendations/route';
+import { ArtistObject, TrackObject } from 'spotify-api-types';
 import { create } from 'zustand';
 
 interface ArtistStore {
-	selectedArtists: Array<Artist>;
-	addArtist: (artist: Artist) => void;
+	selectedArtists: Array<ArtistObject>;
+	addArtist: (artist: ArtistObject) => void;
 	removeArtist: (artistId: string) => void;
 
-	recommendedTracks: Array<Track>;
-	setRecommendedTracks: (tracks: Array<Track>) => void;
+	recommendedTracks: Array<TrackObject>;
+	setRecommendedTracks: (tracks: Array<TrackObject>) => void;
 
 	selectedGenres: Array<string>;
 	updateSelectedGenres: (genres: Array<string>) => void;
+
+	selectedTracks: Array<TrackObject>;
+	addTrack: (track: TrackObject) => void;
+	removeTrack: (trackId: string) => void;
 }
 
 export const useZustandStore = create<ArtistStore>(set => ({
@@ -31,5 +34,13 @@ export const useZustandStore = create<ArtistStore>(set => ({
 	selectedGenres: [],
 	updateSelectedGenres: genres => {
 		set(() => ({ selectedGenres: genres }));
+	},
+
+	selectedTracks: [],
+	addTrack: track => {
+		set(state => ({ selectedTracks: [...state.selectedTracks, track] }));
+	},
+	removeTrack: trackId => {
+		set(state => ({ selectedTracks: state.selectedTracks.filter(track => track.id !== trackId) }));
 	},
 }));

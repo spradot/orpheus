@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import { FaSpotify } from 'react-icons/fa';
 import { MdExplicit } from 'react-icons/md';
-import { type Track } from './api/recommendations/route';
+import type { TrackObject } from 'spotify-api-types';
 
-export function TrackCard({ className, track }: { className?: string; track: Track }) {
+export function TrackCard({ className, track }: { className?: string; track: TrackObject }) {
 	const trackCover = track.album.images[0];
 
 	return (
@@ -11,8 +11,8 @@ export function TrackCard({ className, track }: { className?: string; track: Tra
 			<div className='flex flex-row items-center gap-x-3'>
 				<Image
 					src={trackCover.url}
-					height={trackCover.height}
-					width={trackCover.width}
+					height={trackCover.height!}
+					width={trackCover.width!}
 					alt={track.name}
 					className='h-32 w-32 rounded-lg'
 				/>

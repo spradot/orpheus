@@ -1,19 +1,21 @@
 'use client';
 
 import { useZustandStore } from '@/util/store';
-import { type GetRecommendationsResponse } from './api/recommendations/route';
+import type { ApiRecommendationsResponse } from './api/recommendations/route';
 
 export function SubmitQuery({ className }: { className?: string }) {
 	const selectedArtists = useZustandStore(state => state.selectedArtists);
+	const selectedTracks = useZustandStore(state => state.selectedTracks);
 	const selectedGenres = useZustandStore(state => state.selectedGenres);
 	const setRecommendedTracks = useZustandStore(state => state.setRecommendedTracks);
 
 	const buildAndSubmitQuery = async () => {
 		const artistsQuery = selectedArtists.map(artist => artist.id).join(',');
 		const genresQuery = selectedGenres.join(',');
-		const url = `/api/recommendations?artists=${artistsQuery}&genres=${genresQuery}`;
+		const tracksQuery = selectedTracks.map(track => track.id).join(',');
+		const url = `/api/recommendations?artists=${artistsQuery}&genres=${genresQuery}&tracks=${tracksQuery}`;
 		const res = await fetch(url);
-		const data: GetRecommendationsResponse = await res.json();
+		const data: ApiRecommendationsResponse = await res.json();
 		setRecommendedTracks(data.tracks);
 	};
 

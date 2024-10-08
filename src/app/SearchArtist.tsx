@@ -3,14 +3,20 @@
 import { useZustandStore } from '@/util/store';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import type { Artist, GetArtistResponse } from './api/artists/route';
+import type { ArtistObject } from 'spotify-api-types';
+import type { ApiArtistsResponse } from './api/artists/route';
 
 export function SearchArtist({ className }: { className?: string }) {
 	const [query, setQuery] = useState('');
-	const [suggestions, setSuggestions] = useState<Array<Artist>>([]);
+	const [suggestions, setSuggestions] = useState<Array<ArtistObject>>([]);
 	const selectedArtists = useZustandStore(state => state.selectedArtists);
 	const addArtist = useZustandStore(state => state.addArtist);
 	const removeArtist = useZustandStore(state => state.removeArtist);
+
+	const selectedGenres = useZustandStore(state => state.selectedGenres);
+	const selectedTracks = useZustandStore(state => state.selectedTracks);
+
+	const totalSelectionCount = selectedArtists.length + selectedGenres.length + selectedTracks.length;
 
 	useEffect(() => {
 		if (query === '') {
@@ -20,7 +26,7 @@ export function SearchArtist({ className }: { className?: string }) {
 
 		const fetchSuggestions = async () => {
 			const res = await fetch(`/api/artists?query=${query}`);
-			const data: GetArtistResponse = await res.json();
+			const data: ApiArtistsResponse = await res.json();
 			setSuggestions(data.artists.filter(artist => artist.popularity > 30));
 		};
 
@@ -31,8 +37,8 @@ export function SearchArtist({ className }: { className?: string }) {
 		return () => clearTimeout(debounceFetch);
 	}, [query]);
 
-	const updateSelection = (artist: Artist) => {
-		if (selectedArtists.length === 5) {
+	const updateSelection = (artist: ArtistObject) => {
+		if (totalSelectionCount >= 5) {
 			// Show that cannot add more than 5
 			return;
 		}
@@ -57,8 +63,8 @@ export function SearchArtist({ className }: { className?: string }) {
 								<li key={artist.id} className='cursor-pointer'>
 									<Image
 										src={image.url}
-										width={image.width}
-										height={image.height}
+										width={image.width!}
+										height={image.height!}
 										alt={artist.name}
 										title={artist.name}
 										className='h-8 w-8 rounded-full outline-dashed outline-1 outline-white'
@@ -70,7 +76,9 @@ export function SearchArtist({ className }: { className?: string }) {
 						{Array.from({ length: 5 - selectedArtists.length }).map((_, index) => {
 							return (
 								<li key={index}>
-									<div className='h-8 w-8 rounded-full outline-dashed outline-1 outline-white'></div>
+									<div
+										className={`h-8 w-8 rounded-full outline-dashed outline-1 ${totalSelectionCount >= 5 ? 'outline-red-400' : 'outline-white'}`}
+									></div>
 								</li>
 							);
 						})}
@@ -95,8 +103,8 @@ export function SearchArtist({ className }: { className?: string }) {
 							>
 								<Image
 									src={image.url}
-									width={image.width}
-									height={image.height}
+									width={image.width!}
+									height={image.height!}
 									alt={artist.name}
 									className='h-12 w-12 rounded-full'
 								/>
