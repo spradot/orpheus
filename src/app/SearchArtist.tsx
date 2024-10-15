@@ -67,7 +67,7 @@ export function SearchArtist({ className }: { className?: string }) {
 										height={image.height!}
 										alt={artist.name}
 										title={artist.name}
-										className='h-8 w-8 rounded-full outline-dashed outline-1 outline-white'
+										className='h-8 w-8 rounded-full outline-dashed outline-1 outline-[#1DB954]'
 										onClick={() => removeArtist(artist.id)}
 									/>
 								</li>
@@ -77,7 +77,7 @@ export function SearchArtist({ className }: { className?: string }) {
 							return (
 								<li key={index}>
 									<div
-										className={`h-8 w-8 rounded-full outline-dashed outline-1 ${totalSelectionCount >= 5 ? 'outline-red-400' : 'outline-white'}`}
+										className={`h-8 w-8 rounded-full outline-dashed outline-1 ${totalSelectionCount >= 5 ? 'outline-gray-500' : 'outline-white'}`}
 									></div>
 								</li>
 							);
@@ -91,6 +91,7 @@ export function SearchArtist({ className }: { className?: string }) {
 					onChange={e => setQuery(e.target.value)}
 					className='w-full rounded-lg bg-black px-2 py-2 placeholder-gray-300/90 outline outline-1 outline-white'
 					placeholder='Search An Artist'
+					spellCheck='false'
 				/>
 				<ul className='flex flex-col gap-y-1'>
 					{suggestions.map(artist => {
@@ -98,7 +99,7 @@ export function SearchArtist({ className }: { className?: string }) {
 						return (
 							<li
 								key={artist.id}
-								className='flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 hover:bg-white/20 hover:outline-dashed hover:outline-1'
+								className='flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 hover:bg-[#1DB954] hover:text-[#191414]'
 								onClick={() => updateSelection(artist)}
 							>
 								<Image

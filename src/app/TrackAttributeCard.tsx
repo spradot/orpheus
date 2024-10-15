@@ -104,6 +104,7 @@ export function TrackAttributeCard({
 							isActive: !trackAttributeValue.isActive,
 						})
 					}
+					className='hover:cursor-pointer'
 				/>
 			</div>
 			{trackAttributeValue.isActive ? (
@@ -121,7 +122,7 @@ export function TrackAttributeCard({
 							value={trackAttributeValue.min}
 							onChange={e => handleSliderChange(e)}
 							disabled={!trackAttributeValue.isActive}
-							className='h-1 cursor-pointer appearance-none rounded-lg bg-green-300 [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white'
+							className='h-1 cursor-pointer appearance-none rounded-lg bg-[#1DB954] [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white'
 						/>
 						<h1 className='min-w-[5ch] max-w-[5ch] rounded-md text-center outline outline-1'>
 							{trackAttributeValue.min}
@@ -140,7 +141,7 @@ export function TrackAttributeCard({
 							value={trackAttributeValue.target}
 							onChange={e => handleSliderChange(e)}
 							disabled={!trackAttributeValue.isActive}
-							className='h-1 cursor-pointer appearance-none rounded-lg bg-green-500 [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white'
+							className='h-1 cursor-pointer appearance-none rounded-lg bg-[#1DB954] [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white'
 						/>
 						<h1 className='min-w-[5ch] max-w-[5ch] rounded-md text-center outline outline-1'>
 							{trackAttributeValue.target}
@@ -159,7 +160,7 @@ export function TrackAttributeCard({
 							value={trackAttributeValue.max}
 							onChange={e => handleSliderChange(e)}
 							disabled={!trackAttributeValue.isActive}
-							className='h-1 cursor-pointer appearance-none rounded-lg bg-green-700 [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white'
+							className='h-1 cursor-pointer appearance-none rounded-lg bg-[#1DB954] [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white'
 						/>
 						<h1 className='min-w-[5ch] max-w-[5ch] rounded-md text-center outline outline-1'>
 							{trackAttributeValue.max}

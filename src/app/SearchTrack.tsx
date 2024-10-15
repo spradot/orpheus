@@ -67,7 +67,7 @@ export function SearchTrack() {
 									height={image.height!}
 									alt={track.name}
 									title={track.name}
-									className='h-8 w-8 rounded-full outline-dashed outline-1 outline-white'
+									className='h-8 w-8 rounded-full outline-dashed outline-1 outline-[#1DB954]'
 									onClick={() => removeTrack(track.id)}
 								/>
 							</li>
@@ -77,7 +77,7 @@ export function SearchTrack() {
 						return (
 							<li key={index}>
 								<div
-									className={`h-8 w-8 rounded-full outline-dashed outline-1 ${totalSelectionCount >= 5 ? 'outline-red-400' : 'outline-white'}`}
+									className={`h-8 w-8 rounded-full outline-dashed outline-1 ${totalSelectionCount >= 5 ? 'outline-gray-500' : 'outline-white'}`}
 								></div>
 							</li>
 						);
@@ -91,6 +91,7 @@ export function SearchTrack() {
 				onChange={e => setQuery(e.target.value)}
 				className='w-full rounded-lg bg-black px-2 py-2 placeholder-gray-300/90 outline outline-1 outline-white'
 				placeholder='Search A Track'
+				spellCheck='false'
 			/>
 			<ul className='flex flex-col gap-y-1'>
 				{suggestions.map(track => {
@@ -98,7 +99,7 @@ export function SearchTrack() {
 					return (
 						<li
 							key={track.id}
-							className='flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 hover:bg-white/20 hover:outline-dashed hover:outline-1'
+							className='group flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 hover:bg-[#1DB954] hover:text-[#191414]'
 							onClick={() => updateSelection(track)}
 						>
 							<Image
@@ -109,11 +110,13 @@ export function SearchTrack() {
 								className='h-12 w-12 rounded-full'
 							/>
 							<div className='flex flex-col'>
-								<h1 className='flex flex-row items-center gap-x-1 text-white'>
+								<h1 className='flex flex-row items-center gap-x-1 text-white group-hover:text-[#191414]'>
 									{track.explicit && <MdExplicit className='h-6 w-5' />}
 									{track.name}
 								</h1>
-								<h1 className='text-xs text-gray-400'>{track.artists.map(artist => artist.name).join(', ')}</h1>
+								<h1 className='text-xs text-gray-400 group-hover:text-gray-200'>
+									{track.artists.map(artist => artist.name).join(', ')}
+								</h1>
 							</div>
 						</li>
 					);

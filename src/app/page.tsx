@@ -1,5 +1,4 @@
 import { getAccessToken } from '@/util/utils';
-import { Recommendations } from './Recommendations';
 import { SearchArtist } from './SearchArtist';
 import { SearchGenre } from './SearchGenre';
 import { SearchTrack } from './SearchTrack';
@@ -18,15 +17,14 @@ export default async function Home() {
 	const data: SpotifyGenreResponse = await res.json();
 
 	return (
-		<div className='flex flex-col items-center gap-x-2 gap-y-6 px-4 py-4'>
-			<div className='flex w-full flex-col items-center gap-y-2 xl:flex-row xl:items-baseline xl:justify-evenly'>
+		<div className='mt-4 flex flex-col items-center gap-x-2 gap-y-8 px-4 py-4'>
+			<div className='flex w-full flex-col items-center gap-y-4 xl:flex-row xl:items-baseline xl:justify-center xl:gap-x-4'>
 				<SearchArtist className='h-fit w-96' />
 				<SearchTrack />
 				<SearchGenre genres={data.genres} />
 				<SearchTrackAttribute />
 			</div>
 			<SubmitQuery />
-			<Recommendations />
 		</div>
 	);
 }

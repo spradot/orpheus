@@ -1,6 +1,8 @@
 'use client';
 
 import { type RawTrackAttributeValue, useZustandStore } from '@/util/store';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import type { GetRecommendationsQuery } from 'spotify-api-types';
 import type { ApiRecommendationsResponse } from './api/recommendations/route';
 
@@ -10,10 +12,13 @@ export function SubmitQuery({ className }: { className?: string }) {
 	const selectedGenres = useZustandStore(state => state.selectedGenres);
 	const selectedTrackAttributes = useZustandStore(state => state.selectedTrackAttributes);
 	const setRecommendedTracks = useZustandStore(state => state.setRecommendedTracks);
-
-	const isDisabled = selectedArtists.length + selectedGenres.length + selectedTracks.length === 0 ? true : false;
+	const router = useRouter();
+	const [isFetching, setIsFetching] = useState(false);
+	const isMissingRequiredFields =
+		selectedArtists.length + selectedGenres.length + selectedTracks.length === 0 ? true : false;
 
 	const buildAndSubmitQuery = async () => {
+		setIsFetching(true);
 		const url = `/api/recommendations`;
 		let rawAttributes: RawTrackAttributeValue = {};
 		for (const [trackAttributeName, trackAttributeValue] of selectedTrackAttributes.entries()) {
@@ -34,6 +39,8 @@ export function SubmitQuery({ className }: { className?: string }) {
 		const res = await fetch(url, { method: 'POST', body: JSON.stringify(body) });
 		const data: ApiRecommendationsResponse = await res.json();
 		setRecommendedTracks(data.tracks);
+		setIsFetching(false);
+		router.push('/recommendations', { scroll: false });
 	};
 
 	return (
@@ -41,10 +48,10 @@ export function SubmitQuery({ className }: { className?: string }) {
 			<input
 				type='button'
 				onClick={buildAndSubmitQuery}
-				value='Submit'
-				title={isDisabled ? `Select at least one seed Track/Artist/Genre` : ''}
-				className={`h-fit w-fit rounded-md px-3 py-1 shadow-md ${isDisabled ? 'cursor-not-allowed bg-gray-400' : 'cursor-pointer bg-green-700 text-white hover:bg-green-600'} ${className}`}
-				disabled={isDisabled}
+				value={isFetching ? 'Fetching' : 'Submit'}
+				title={isMissingRequiredFields ? `Select at least one seed Track/Artist/Genre` : ''}
+				className={`h-fit w-fit rounded-md px-3 py-1 shadow-md ${isMissingRequiredFields || isFetching ? 'cursor-not-allowed bg-gray-400' : 'cursor-pointer bg-[#1DB954] text-[#191414] hover:bg-green-600'} ${className}`}
+				disabled={isMissingRequiredFields || isFetching}
 			/>
 		</>
 	);
