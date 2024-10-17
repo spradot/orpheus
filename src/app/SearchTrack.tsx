@@ -26,9 +26,16 @@ export function SearchTrack() {
 		}
 
 		const fetchSuggestions = async () => {
+			const cachedResults = window.localStorage.getItem(`tracks:${query}`);
+			if (cachedResults) {
+				const cachedTracks: ApiTracksResponse['tracks'] = JSON.parse(cachedResults);
+				return setSuggestions(cachedTracks);
+			}
 			const res = await fetch(`/api/tracks?query=${query}`);
 			const data: ApiTracksResponse = await res.json();
-			setSuggestions(data.tracks.sort((a, b) => b.popularity - a.popularity));
+			const tracks = data.tracks.sort((a, b) => b.popularity - a.popularity);
+			setSuggestions(tracks);
+			window.localStorage.setItem(`tracks:${query}`, JSON.stringify(tracks));
 		};
 
 		const debounceFetch = setTimeout(() => {

@@ -25,9 +25,16 @@ export function SearchArtist({ className }: { className?: string }) {
 		}
 
 		const fetchSuggestions = async () => {
+			const cachedResults = window.localStorage.getItem(`artists:${query}`);
+			if (cachedResults) {
+				const cachedArtists: ApiArtistsResponse['artists'] = JSON.parse(cachedResults);
+				return setSuggestions(cachedArtists);
+			}
 			const res = await fetch(`/api/artists?query=${query}`);
 			const data: ApiArtistsResponse = await res.json();
-			setSuggestions(data.artists.filter(artist => artist.popularity > 30));
+			const artists = data.artists.filter(artist => artist.popularity > 30);
+			setSuggestions(artists);
+			window.localStorage.setItem(`artists:${query}`, JSON.stringify(artists));
 		};
 
 		const debounceFetch = setTimeout(() => {
