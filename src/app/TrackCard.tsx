@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import { FaSpotify } from 'react-icons/fa';
 import { MdExplicit } from 'react-icons/md';
 import type { TrackObject } from 'spotify-api-types';
+import { BlurImage } from './BlurImage';
 
 export function TrackCard({ className, track }: { className?: string; track: TrackObject }) {
 	const trackCover = track.album.images[0];
@@ -9,7 +9,7 @@ export function TrackCard({ className, track }: { className?: string; track: Tra
 	return (
 		<div className={`flex flex-row justify-between gap-y-3 rounded-2xl bg-black px-3 py-4 shadow-md ${className}`}>
 			<div className='flex flex-row items-center gap-x-3'>
-				<Image
+				<BlurImage
 					src={trackCover.url}
 					height={trackCover.height!}
 					width={trackCover.width!}

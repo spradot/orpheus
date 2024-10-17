@@ -91,7 +91,7 @@ export function TrackAttributeCard({
 		>
 			<div className='flex flex-row items-center justify-between gap-x-2'>
 				<h1 className='rounded-lg px-2 text-sm capitalize outline outline-1'>
-					{trackAttributeName === 'duration_ms' ? 'Duration' : trackAttributeName}
+					{trackAttributeName === 'duration_ms' ? 'Duration Seconds' : trackAttributeName}
 				</h1>
 				<input
 					type='button'

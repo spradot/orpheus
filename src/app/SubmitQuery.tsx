@@ -25,9 +25,12 @@ export function SubmitQuery({ className }: { className?: string }) {
 			if (!trackAttributeValue.isActive) continue;
 			rawAttributes = {
 				...rawAttributes,
-				[`min_${trackAttributeName}`]: trackAttributeValue.min,
-				[`max_${trackAttributeName}`]: trackAttributeValue.max,
-				[`target_${trackAttributeName}`]: trackAttributeValue.target,
+				[`min_${trackAttributeName}`]:
+					trackAttributeName === 'duration_ms' ? trackAttributeValue.min * 1000 : trackAttributeValue.min,
+				[`max_${trackAttributeName}`]:
+					trackAttributeName === 'duration_ms' ? trackAttributeValue.max * 1000 : trackAttributeValue.max,
+				[`target_${trackAttributeName}`]:
+					trackAttributeName === 'duration_ms' ? trackAttributeValue.target * 1000 : trackAttributeValue.target,
 			};
 		}
 		const body: GetRecommendationsQuery = {
@@ -39,8 +42,8 @@ export function SubmitQuery({ className }: { className?: string }) {
 		const res = await fetch(url, { method: 'POST', body: JSON.stringify(body) });
 		const data: ApiRecommendationsResponse = await res.json();
 		setRecommendedTracks(data.tracks);
+		router.push('/recommendations', { scroll: true });
 		setIsFetching(false);
-		router.push('/recommendations', { scroll: false });
 	};
 
 	return (
