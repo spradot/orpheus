@@ -74,7 +74,7 @@ export function SearchTrack() {
 									height={image.height!}
 									alt={track.name}
 									title={track.name}
-									className='h-8 w-8 rounded-full outline-dashed outline-1 outline-[#1DB954]'
+									className='h-8 w-8 rounded-full outline-dashed outline-1 outline-[#1ED760]'
 									onClick={() => removeTrack(track.id)}
 								/>
 							</li>
@@ -106,7 +106,7 @@ export function SearchTrack() {
 					return (
 						<li
 							key={track.id}
-							className='group flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 hover:bg-[#1DB954] hover:text-[#191414]'
+							className='group flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 hover:bg-[#1ED760] hover:text-[#121212]'
 							onClick={() => updateSelection(track)}
 						>
 							<Image
@@ -117,7 +117,7 @@ export function SearchTrack() {
 								className='h-12 w-12 rounded-full'
 							/>
 							<div className='flex flex-col'>
-								<h1 className='flex flex-row items-center gap-x-1 text-white group-hover:text-[#191414]'>
+								<h1 className='flex flex-row items-center gap-x-1 text-white group-hover:text-[#121212]'>
 									{track.explicit && <MdExplicit className='h-6 w-5' />}
 									{track.name}
 								</h1>

@@ -33,7 +33,7 @@ export function SearchGenre({ genres }: SpotifyGenreResponse) {
 					return (
 						<li
 							key={genre}
-							className={`select-none rounded-md px-2 ${selectedGenres.includes(genre) ? 'cursor-pointer bg-[#1DB954] text-[#191414]' : totalSelectionCount >= 5 ? 'cursor-default text-gray-500 outline-dashed outline-1 outline-gray-500' : 'cursor-pointer outline-dashed outline-1 outline-gray-500 hover:bg-white/20 hover:outline hover:outline-1'}`}
+							className={`select-none rounded-md px-2 ${selectedGenres.includes(genre) ? 'cursor-pointer bg-[#1ED760] text-[#121212]' : totalSelectionCount >= 5 ? 'cursor-default text-gray-500 outline-dashed outline-1 outline-gray-500' : 'cursor-pointer outline-dashed outline-1 outline-gray-500 hover:bg-white/20 hover:outline hover:outline-1'}`}
 							onClick={() => updateSelection(genre)}
 						>
 							{genre}

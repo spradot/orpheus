@@ -74,7 +74,7 @@ export function SearchArtist({ className }: { className?: string }) {
 										height={image.height!}
 										alt={artist.name}
 										title={artist.name}
-										className='h-8 w-8 rounded-full outline-dashed outline-1 outline-[#1DB954]'
+										className='h-8 w-8 rounded-full outline-dashed outline-1 outline-[#1ED760]'
 										onClick={() => removeArtist(artist.id)}
 									/>
 								</li>
@@ -106,7 +106,7 @@ export function SearchArtist({ className }: { className?: string }) {
 						return (
 							<li
 								key={artist.id}
-								className='flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 hover:bg-[#1DB954] hover:text-[#191414]'
+								className='flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 text-white hover:bg-[#1ED760] hover:text-[#121212]'
 								onClick={() => updateSelection(artist)}
 							>
 								<Image

@@ -53,7 +53,7 @@ export function SubmitQuery({ className }: { className?: string }) {
 				onClick={buildAndSubmitQuery}
 				value={isFetching ? 'Fetching' : 'Submit'}
 				title={isMissingRequiredFields ? `Select at least one seed Track/Artist/Genre` : ''}
-				className={`h-fit w-fit rounded-md px-3 py-1 shadow-md ${isMissingRequiredFields || isFetching ? 'cursor-not-allowed bg-gray-400' : 'cursor-pointer bg-[#1DB954] text-[#191414] hover:bg-green-600'} ${className}`}
+				className={`h-fit w-fit rounded-md px-3 py-1 shadow-md ${isMissingRequiredFields || isFetching ? 'cursor-not-allowed bg-gray-400' : 'cursor-pointer bg-[#1ED760] text-[#121212] hover:bg-green-600'} ${className}`}
 				disabled={isMissingRequiredFields || isFetching}
 			/>
 		</>

@@ -57,7 +57,7 @@ export function TrackCard({ className, track }: { className?: string; track: Tra
 					className='text-white'
 					title='Open In Spotify'
 				>
-					<FaSpotify className='h-7 w-7 fill-green-400' />
+					<FaSpotify className='h-7 w-7 fill-[#1ED760]' />
 				</a>
 			</div>
 		</div>
