@@ -7,15 +7,8 @@ const redis = new Redis({
 });
 
 export async function getAccessToken(): Promise<string> {
-	console.log('Token Request Made.');
-
-	const accessTokenData = await redis.get<AccessTokenData>('accessTokenData');
-	if (accessTokenData) {
-		const { accessToken, expiresAt } = accessTokenData;
-		const currentTimestamp = new Date().getTime();
-		const buffer = 10 * 1000; // 10 sec
-		if (expiresAt > currentTimestamp + buffer) return accessToken;
-	}
+	const accessToken = await redis.get<string>('accessToken');
+	if (accessToken) return accessToken;
 
 	const url = 'https://accounts.spotify.com/api/token';
 	const body = new URLSearchParams();
@@ -39,16 +32,6 @@ export async function getAccessToken(): Promise<string> {
 	const data: ClientCredentialsFlowAccessTokenObject = await res.json();
 	console.log('New Token Generated');
 
-	const currentTimestamp = new Date().getTime();
-	const accessTokenExpiryTimestamp = currentTimestamp + data.expires_in * 1000; // Convert 'data.expires_in' from sec to ms
-	redis.set<AccessTokenData>('accessTokenData', {
-		accessToken: data.access_token,
-		expiresAt: accessTokenExpiryTimestamp,
-	});
+	redis.set<string>('accessToken', data.access_token, { ex: data.expires_in });
 	return data.access_token;
-}
-
-interface AccessTokenData {
-	accessToken: string;
-	expiresAt: number;
 }
