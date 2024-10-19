@@ -9,7 +9,7 @@ const REVALIDATE_TIME = 1 * 24 * 60 * 60; // Days * Hours * Minutes * Seconds
 
 async function fetchGenres(): Promise<ApiGenresResponse['genres']> {
 	const url = process.env.VERCEL_URL
-		? `https://${process.env.VERCEL_URL}/api/genres`
+		? 'https://orpheus-music.vercel.app/api/genres'
 		: 'http://localhost:3000/api/genres';
 	const res = await fetch(url, {
 		headers: {
