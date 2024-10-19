@@ -23,7 +23,7 @@ export async function GET(request: Request) {
 	});
 	if (!res.ok) {
 		const error = await res.text();
-		throw new Error(error);
+		console.log(error);
 	}
 	const data: GetSearchResponse = await res.json();
 	const resBody: ApiArtistsResponse = { artists: data.artists.items };

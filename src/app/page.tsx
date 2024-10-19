@@ -1,29 +1,29 @@
+import { getAccessToken } from '@/util/utils';
+import { type GetRecommendationGenresResponse } from 'spotify-api-types';
 import { SearchArtist } from './SearchArtist';
 import { SearchGenre } from './SearchGenre';
 import { SearchTrack } from './SearchTrack';
 import { SearchTrackAttribute } from './SearchTrackAttribute';
 import { SubmitQuery } from './SubmitQuery';
-import type { ApiGenresResponse } from './api/genres/route';
 
-const REVALIDATE_TIME = 1 * 24 * 60 * 60; // Days * Hours * Minutes * Seconds
+// const REVALIDATE_TIME = 1 * 24 * 60 * 60; // Days * Hours * Minutes * Seconds
+// One week in seconds (60 * 60 * 24 * 7 = 604800 seconds)
+const ONE_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
-async function fetchGenres(): Promise<ApiGenresResponse['genres']> {
-	const url = process.env.VERCEL_URL
-		? 'https://orpheus-music.vercel.app/api/genres'
-		: 'http://localhost:3000/api/genres';
+async function fetchGenres(): Promise<GetRecommendationGenresResponse['genres']> {
+	const url = 'https://api.spotify.com/v1/recommendations/available-genre-seeds';
+	const accessToken = await getAccessToken();
 	const res = await fetch(url, {
-		headers: {
-			referer: url,
-		},
+		headers: { Authorization: `Bearer ${accessToken}` },
 		next: {
-			revalidate: REVALIDATE_TIME,
+			revalidate: ONE_WEEK_IN_SECONDS,
 		},
 	});
 	if (!res.ok) {
 		const error = await res.text();
-		throw new Error(error);
+		console.log(error);
 	}
-	const data: ApiGenresResponse = await res.json();
+	const data: GetRecommendationGenresResponse = await res.json();
 	return data.genres;
 }
 

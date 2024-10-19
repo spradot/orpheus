@@ -20,7 +20,7 @@ export async function getAccessToken(): Promise<string> {
 	});
 	if (!res.ok) {
 		const error = await res.text();
-		throw new Error(error);
+		console.log(error);
 	}
 	const data: AccessTokenResponse = await res.json();
 	console.log('New Token Generated');

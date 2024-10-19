@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 	});
 	if (!res.ok) {
 		const error = await res.text();
-		throw new Error(error);
+		console.log(error);
 	}
 	const data: GetRecommendationsResponse = await res.json();
 	const resBody: ApiRecommendationsResponse = { tracks: data.tracks as TrackObject[] };

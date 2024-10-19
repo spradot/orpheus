@@ -1,8 +1,8 @@
 'use client';
 import { useZustandStore } from '@/util/store';
-import { type ApiGenresResponse } from './api/genres/route';
+import type { GetRecommendationGenresResponse } from 'spotify-api-types';
 
-export function SearchGenre({ genres }: { genres: ApiGenresResponse['genres'] }) {
+export function SearchGenre({ genres }: { genres: GetRecommendationGenresResponse['genres'] }) {
 	const selectedGenres = useZustandStore(state => state.selectedGenres);
 	const updateSelectedGenres = useZustandStore(state => state.updateSelectedGenres);
 
