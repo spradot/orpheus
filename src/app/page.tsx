@@ -24,6 +24,7 @@ async function fetchGenres(): Promise<ApiGenresResponse['genres']> {
 }
 
 export default async function Home() {
+	console.log(`Vercel URL: ${process.env.VERCEL_URL}`);
 	const genres = await fetchGenres();
 
 	return (

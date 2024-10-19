@@ -20,6 +20,10 @@ export async function GET() {
 			revalidate: ONE_WEEK_IN_SECONDS,
 		},
 	});
+	if (!res.ok) {
+		const error = await res.text();
+		throw new Error(error);
+	}
 	const data: GetRecommendationGenresResponse = await res.json();
 	const resBody: ApiGenresResponse = data;
 	return Response.json(resBody);

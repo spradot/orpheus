@@ -21,6 +21,10 @@ export async function GET(request: Request) {
 			revalidate: ONE_WEEK_IN_SECONDS,
 		},
 	});
+	if (!res.ok) {
+		const error = await res.text();
+		throw new Error(error);
+	}
 	const data: GetSearchResponse = await res.json();
 	const resBody: ApiTracksResponse = { tracks: data.tracks.items };
 	return Response.json(resBody);

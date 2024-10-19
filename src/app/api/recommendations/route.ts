@@ -30,6 +30,10 @@ export async function POST(request: Request) {
 	const res = await fetch(url, {
 		headers: { Authorization: `Bearer ${accessToken}` },
 	});
+	if (!res.ok) {
+		const error = await res.text();
+		throw new Error(error);
+	}
 	const data: GetRecommendationsResponse = await res.json();
 	const resBody: ApiRecommendationsResponse = { tracks: data.tracks as TrackObject[] };
 	return Response.json(resBody);
