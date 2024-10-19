@@ -18,6 +18,10 @@ export async function getAccessToken(): Promise<string> {
 		headers,
 		body,
 	});
+	if (!res.ok) {
+		const error = await res.text();
+		throw new Error(error);
+	}
 	const data: AccessTokenResponse = await res.json();
 	console.log('New Token Generated');
 	await kv.set('accessToken', data.access_token, { ex: data.expires_in });

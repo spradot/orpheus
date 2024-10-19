@@ -19,12 +19,15 @@ async function fetchGenres(): Promise<ApiGenresResponse['genres']> {
 			revalidate: REVALIDATE_TIME,
 		},
 	});
+	if (!res.ok) {
+		const error = await res.text();
+		throw new Error(error);
+	}
 	const data: ApiGenresResponse = await res.json();
 	return data.genres;
 }
 
 export default async function Home() {
-	console.log(`Vercel URL: ${process.env.VERCEL_URL}`);
 	const genres = await fetchGenres();
 
 	return (
