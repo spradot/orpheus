@@ -14,7 +14,7 @@ export function BlurImage(props: ImageProps) {
 				'duration-700 ease-in-out',
 				isLoading ? 'scale-100 blur-xl grayscale' : 'scale-100 blur-0 grayscale-0',
 			)}
-			onLoadingComplete={() => setLoading(false)}
+			onLoad={() => setLoading(false)}
 		/>
 	);
 }

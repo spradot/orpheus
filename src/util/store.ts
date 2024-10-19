@@ -17,10 +17,6 @@ interface ArtistStore {
 	removeTrack: (trackId: string) => void;
 
 	selectedTrackAttributes: Map<TrackAttributeName, TrackAttributeValue>;
-	setSelectedTrackAttributes: (
-		trackAttributeName: TrackAttributeName,
-		trackAttributeValue: TrackAttributeValue,
-	) => void;
 	updateSelectedTrackAttributes: (
 		trackAttributeName: TrackAttributeName,
 		trackAttributeValue: Partial<TrackAttributeValue>,
@@ -54,14 +50,7 @@ export const useZustandStore = create<ArtistStore>(set => ({
 		set(state => ({ selectedTracks: state.selectedTracks.filter(track => track.id !== trackId) }));
 	},
 
-	selectedTrackAttributes: new Map(),
-	setSelectedTrackAttributes: (trackAttributeName, trackAttributeValue) => {
-		set(state => {
-			const newMap = new Map(state.selectedTrackAttributes);
-			newMap.set(trackAttributeName, trackAttributeValue);
-			return { selectedTrackAttributes: newMap };
-		});
-	},
+	selectedTrackAttributes: initDefaultAttributeValues(),
 	updateSelectedTrackAttributes: (trackAttributeName, trackAttributeValue) => {
 		set(state => {
 			const newMap = new Map(state.selectedTrackAttributes);
@@ -86,7 +75,79 @@ export type RawTrackAttributeValue = Partial<Record<RawTrackAttributeName, numbe
 
 export interface TrackAttributeValue {
 	min: number;
+	defaultMin: number;
 	target: number;
 	max: number;
+	defaultMax: number;
 	isActive: boolean;
+	step: number;
+}
+
+function initDefaultAttributeValues(): Map<TrackAttributeName, TrackAttributeValue> {
+	const TRACK_ATTRIBUTES: Array<TrackAttributeName> = [
+		'acousticness',
+		'danceability',
+		'duration_ms',
+		'energy',
+		'instrumentalness',
+		'key',
+		'liveness',
+		'loudness',
+		'mode',
+		'popularity',
+		'speechiness',
+		'tempo',
+		'time_signature',
+		'valence',
+	];
+	const defaultAttributeValues = new Map<TrackAttributeName, TrackAttributeValue>();
+	for (const trackAttributeName of TRACK_ATTRIBUTES) {
+		let min, target, max, step;
+		switch (trackAttributeName) {
+			case 'duration_ms':
+				min = 0;
+				max = 3600;
+				step = 1;
+				target = Math.round((min + max) / 2);
+				break;
+
+			case 'key':
+				min = 0;
+				max = 11;
+				step = 1;
+				target = Math.round((min + max) / 2);
+				break;
+
+			case 'popularity':
+				min = 0;
+				max = 100;
+				step = 1;
+				target = Math.round((min + max) / 2);
+				break;
+
+			case 'time_signature':
+				min = 0;
+				max = 11;
+				step = 1;
+				target = Math.round((min + max) / 2);
+				break;
+
+			default:
+				min = 0;
+				max = 1;
+				step = 0.01;
+				target = (min + max) / 2;
+				break;
+		}
+		defaultAttributeValues.set(trackAttributeName, {
+			min,
+			defaultMin: min,
+			target,
+			max,
+			defaultMax: max,
+			step,
+			isActive: false,
+		});
+	}
+	return defaultAttributeValues;
 }

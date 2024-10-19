@@ -16,10 +16,10 @@ export async function GET(request: Request) {
 	const url = encodeURI(`https://api.spotify.com/v1/search?q=${query}&type=artist&limit=10`);
 	const accessToken = await getAccessToken();
 	const res = await fetch(url, {
+		headers: { Authorization: `Bearer ${accessToken}` },
 		next: {
 			revalidate: ONE_WEEK_IN_SECONDS,
 		},
-		headers: { Authorization: `Bearer ${accessToken}` },
 	});
 	const data: GetSearchResponse = await res.json();
 	const resBody: ApiArtistsResponse = { artists: data.artists.items };

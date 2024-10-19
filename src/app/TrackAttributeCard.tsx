@@ -1,7 +1,7 @@
 'use client';
 
 import { type TrackAttributeName, useZustandStore } from '@/util/store';
-import { ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
 
 export function TrackAttributeCard({
 	trackAttributeName,
@@ -10,58 +10,9 @@ export function TrackAttributeCard({
 	trackAttributeName: TrackAttributeName;
 	className?: string;
 }) {
-	const trackAttributeValue = useZustandStore(state => state.selectedTrackAttributes.get(trackAttributeName));
-	const setSelectedTrackAttributes = useZustandStore(state => state.setSelectedTrackAttributes);
+	const trackAttributeValue = useZustandStore(state => state.selectedTrackAttributes.get(trackAttributeName)!);
+	const { defaultMin, defaultMax, step } = trackAttributeValue;
 	const updateSelectedTrackAttributes = useZustandStore(state => state.updateSelectedTrackAttributes);
-
-	let rangeMin, rangeTarget, rangeMax, rangeStep;
-
-	switch (trackAttributeName) {
-		case 'duration_ms':
-			rangeMin = 0;
-			rangeMax = 3600;
-			rangeStep = 1;
-			rangeTarget = Math.round((rangeMin + rangeMax) / 2);
-			break;
-
-		case 'key':
-			rangeMin = 0;
-			rangeMax = 11;
-			rangeStep = 1;
-			rangeTarget = Math.round((rangeMin + rangeMax) / 2);
-			break;
-
-		case 'popularity':
-			rangeMin = 0;
-			rangeMax = 100;
-			rangeStep = 1;
-			rangeTarget = Math.round((rangeMin + rangeMax) / 2);
-			break;
-
-		case 'time_signature':
-			rangeMin = 0;
-			rangeMax = 11;
-			rangeStep = 1;
-			rangeTarget = Math.round((rangeMin + rangeMax) / 2);
-			break;
-
-		default:
-			rangeMin = 0;
-			rangeMax = 1;
-			rangeStep = 0.01;
-			rangeTarget = (rangeMin + rangeMax) / 2;
-			break;
-	}
-
-	if (typeof trackAttributeValue === 'undefined') {
-		setSelectedTrackAttributes(trackAttributeName, {
-			min: rangeMin,
-			target: rangeTarget,
-			max: rangeMax,
-			isActive: false,
-		});
-		return <></>;
-	}
 
 	const handleSliderChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const newValue = parseFloat(e.target.value);
@@ -116,9 +67,9 @@ export function TrackAttributeCard({
 						<input
 							type='range'
 							id={`min-${trackAttributeName}`}
-							min={rangeMin}
-							max={rangeMax}
-							step={rangeStep}
+							min={defaultMin}
+							max={defaultMax}
+							step={step}
 							value={trackAttributeValue.min}
 							onChange={e => handleSliderChange(e)}
 							disabled={!trackAttributeValue.isActive}
@@ -135,9 +86,9 @@ export function TrackAttributeCard({
 						<input
 							type='range'
 							id={`target-${trackAttributeName}`}
-							min={rangeMin}
-							max={rangeMax}
-							step={rangeStep}
+							min={defaultMin}
+							max={defaultMax}
+							step={step}
 							value={trackAttributeValue.target}
 							onChange={e => handleSliderChange(e)}
 							disabled={!trackAttributeValue.isActive}
@@ -154,9 +105,9 @@ export function TrackAttributeCard({
 						<input
 							type='range'
 							id={`max-${trackAttributeName}`}
-							min={rangeMin}
-							max={rangeMax}
-							step={rangeStep}
+							min={defaultMin}
+							max={defaultMax}
+							step={step}
 							value={trackAttributeValue.max}
 							onChange={e => handleSliderChange(e)}
 							disabled={!trackAttributeValue.isActive}

@@ -1,6 +1,7 @@
 import { kv } from '@vercel/kv';
 
 export async function getAccessToken(): Promise<string> {
+	console.log('Token Request Made.');
 	const accessToken = await kv.get('accessToken');
 	if (accessToken && typeof accessToken === 'string') return accessToken;
 	const url = 'https://accounts.spotify.com/api/token';
