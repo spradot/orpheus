@@ -1,4 +1,5 @@
 import { getAccessToken } from '@/util/utils';
+import { unstable_cache } from 'next/cache';
 import { type GetRecommendationGenresResponse } from 'spotify-api-types';
 import { SearchArtist } from './SearchArtist';
 import { SearchGenre } from './SearchGenre';
@@ -6,7 +7,6 @@ import { SearchTrack } from './SearchTrack';
 import { SearchTrackAttribute } from './SearchTrackAttribute';
 import { SubmitQuery } from './SubmitQuery';
 
-// const REVALIDATE_TIME = 1 * 24 * 60 * 60; // Days * Hours * Minutes * Seconds
 // One week in seconds (60 * 60 * 24 * 7 = 604800 seconds)
 const ONE_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
@@ -15,9 +15,6 @@ async function fetchGenres(): Promise<GetRecommendationGenresResponse['genres']>
 	const accessToken = await getAccessToken();
 	const res = await fetch(url, {
 		headers: { Authorization: `Bearer ${accessToken}` },
-		next: {
-			revalidate: ONE_WEEK_IN_SECONDS,
-		},
 	});
 	if (!res.ok) {
 		const error = await res.text();
@@ -27,8 +24,13 @@ async function fetchGenres(): Promise<GetRecommendationGenresResponse['genres']>
 	return data.genres;
 }
 
+const getCachedGenres = unstable_cache(async () => fetchGenres(), ['cached-genres'], {
+	tags: ['cached-genres'],
+	revalidate: ONE_WEEK_IN_SECONDS,
+});
+
 export default async function Home() {
-	const genres = await fetchGenres();
+	const genres = await getCachedGenres();
 
 	return (
 		<div className='mt-4 flex flex-col items-center gap-x-2 gap-y-8 px-4 py-4'>

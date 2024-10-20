@@ -7,8 +7,10 @@ const redis = new Redis({
 });
 
 export async function getAccessToken(): Promise<string> {
+	console.log('Accessing Token From Redis');
 	const accessToken = await redis.get<string>('accessToken');
 	if (accessToken) return accessToken;
+	console.log('Token Not Found in Redis');
 
 	const url = 'https://accounts.spotify.com/api/token';
 	const body = new URLSearchParams();
