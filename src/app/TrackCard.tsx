@@ -18,7 +18,7 @@ export function TrackCard({ track }: { track: TrackObject }) {
 				/>
 				<div className='flex w-full flex-col gap-y-1 overflow-hidden'>
 					<h1 className='flex flex-row items-center gap-x-1 overflow-hidden text-white'>
-						{track.explicit && <MdExplicit className='h-6 w-5' />}
+						{track.explicit && <MdExplicit className='h-6 min-h-6 w-5 min-w-5' />}
 						<a
 							href={track.external_urls.spotify}
 							target='_blank'
