@@ -34,11 +34,13 @@ export default async function Home() {
 
 	return (
 		<div className='mt-4 flex flex-col items-center gap-x-2 gap-y-8 px-4 py-4'>
-			<div className='flex w-full flex-col items-center gap-y-4 xl:flex-row xl:items-baseline xl:justify-center xl:gap-x-4'>
-				<SearchArtist className='h-fit w-96' />
+			<div className='flex w-full flex-col items-center gap-y-4 xl:flex-row xl:flex-wrap xl:items-baseline xl:justify-center xl:gap-x-4'>
+				<SearchArtist />
 				<SearchTrack />
-				<SearchGenre genres={genres} />
-				<SearchTrackAttribute />
+				<div className='flex w-full flex-col items-center gap-y-4 xl:flex-row xl:flex-wrap xl:items-baseline xl:justify-center xl:gap-x-4'>
+					<SearchGenre genres={genres} />
+					<SearchTrackAttribute />
+				</div>
 			</div>
 			<SubmitQuery />
 		</div>

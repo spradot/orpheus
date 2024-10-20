@@ -58,7 +58,7 @@ export function SearchTrack() {
 	};
 
 	return (
-		<div className={`flex w-96 flex-col gap-y-5 rounded-lg bg-black px-4 pb-4 pt-4 text-white shadow-lg`}>
+		<div className={`flex w-96 min-w-96 flex-col gap-y-5 rounded-lg bg-black px-4 pb-4 pt-4 text-white shadow-lg`}>
 			<div className='flex min-h-8 flex-row items-center gap-x-3'>
 				<label htmlFor='search_track' className='rounded-lg px-2 text-lg outline outline-1'>
 					Tracks
@@ -74,7 +74,7 @@ export function SearchTrack() {
 									height={image.height!}
 									alt={track.name}
 									title={track.name}
-									className='h-8 w-8 rounded-full outline-dashed outline-1 outline-[#1ED760]'
+									className='h-8 max-h-8 w-8 min-w-8 rounded-full outline-dashed outline-1 outline-[#1ED760]'
 									onClick={() => removeTrack(track.id)}
 								/>
 							</li>
@@ -84,7 +84,7 @@ export function SearchTrack() {
 						return (
 							<li key={index}>
 								<div
-									className={`h-8 w-8 rounded-full outline-dashed outline-1 ${totalSelectionCount >= 5 ? 'outline-gray-500' : 'outline-white'}`}
+									className={`h-8 max-h-8 w-8 min-w-8 rounded-full outline-dashed outline-1 ${totalSelectionCount >= 5 ? 'outline-gray-500' : 'outline-white'}`}
 								></div>
 							</li>
 						);
@@ -116,12 +116,12 @@ export function SearchTrack() {
 								alt={track.name}
 								className='h-12 w-12 rounded-full'
 							/>
-							<div className='flex flex-col'>
+							<div className='flex w-full flex-col overflow-hidden'>
 								<h1 className='flex flex-row items-center gap-x-1 text-white group-hover:text-[#121212]'>
 									{track.explicit && <MdExplicit className='h-6 w-5' />}
-									{track.name}
+									<span className='overflow-hidden text-ellipsis whitespace-nowrap'>{track.name}</span>
 								</h1>
-								<h1 className='text-xs text-gray-400 group-hover:text-gray-200'>
+								<h1 className='overflow-hidden text-ellipsis whitespace-nowrap text-xs text-gray-400 group-hover:text-gray-200'>
 									{track.artists.map(artist => artist.name).join(', ')}
 								</h1>
 							</div>

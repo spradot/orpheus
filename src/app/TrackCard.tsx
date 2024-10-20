@@ -3,12 +3,12 @@ import { MdExplicit } from 'react-icons/md';
 import type { TrackObject } from 'spotify-api-types';
 import { BlurImage } from './BlurImage';
 
-export function TrackCard({ className, track }: { className?: string; track: TrackObject }) {
+export function TrackCard({ track }: { track: TrackObject }) {
 	const trackCover = track.album.images[0];
 
 	return (
-		<div className={`flex flex-row justify-between gap-y-3 rounded-2xl bg-black px-3 py-4 shadow-md ${className}`}>
-			<div className='flex flex-row items-center gap-x-3'>
+		<div className={`flex w-96 flex-row gap-x-1 rounded-2xl bg-black px-3 py-4 shadow-md`}>
+			<div className='flex w-full flex-row gap-x-3 overflow-hidden'>
 				<BlurImage
 					src={trackCover.url}
 					height={trackCover.height!}
@@ -16,23 +16,19 @@ export function TrackCard({ className, track }: { className?: string; track: Tra
 					alt={track.name}
 					className='h-32 w-32 rounded-lg'
 				/>
-				<div className='flex flex-col'>
-					<h1 className='flex flex-row items-center gap-x-1 text-white'>
-						{track.explicit && (
-							<span>
-								<MdExplicit className='h-6 w-5' />
-							</span>
-						)}
+				<div className='flex w-full flex-col gap-y-1 overflow-hidden'>
+					<h1 className='flex flex-row items-center gap-x-1 overflow-hidden text-white'>
+						{track.explicit && <MdExplicit className='h-6 w-5' />}
 						<a
 							href={track.external_urls.spotify}
 							target='_blank'
 							rel='noopener noreferrer'
-							className='text-white hover:underline'
+							className='overflow-hidden text-ellipsis whitespace-nowrap text-white hover:underline'
 						>
 							{track.name}
 						</a>
 					</h1>
-					<h1 className='flex flex-col gap-x-1 text-gray-400'>
+					<h1 className='flex flex-col overflow-hidden text-gray-400'>
 						{track.artists.map(artist => {
 							return (
 								<a
@@ -40,7 +36,7 @@ export function TrackCard({ className, track }: { className?: string; track: Tra
 									href={artist.external_urls.spotify}
 									target='_blank'
 									rel='noopener noreferrer'
-									className='hover:underline'
+									className='overflow-hidden text-ellipsis whitespace-nowrap text-sm hover:underline'
 								>
 									{artist.name}
 								</a>
@@ -57,7 +53,7 @@ export function TrackCard({ className, track }: { className?: string; track: Tra
 					className='text-white'
 					title='Open In Spotify'
 				>
-					<FaSpotify className='h-7 w-7 fill-[#1ED760]' />
+					<FaSpotify className='h-7 min-h-7 w-7 min-w-7 fill-[#1ED760]' />
 				</a>
 			</div>
 		</div>

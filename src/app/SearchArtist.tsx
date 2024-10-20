@@ -1,12 +1,13 @@
 'use client';
 
 import { useZustandStore } from '@/util/store';
+import { formatNumber } from '@/util/utils';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import type { ArtistObject } from 'spotify-api-types';
 import type { ApiArtistsResponse } from './api/artists/route';
 
-export function SearchArtist({ className }: { className?: string }) {
+export function SearchArtist() {
 	const [query, setQuery] = useState('');
 	const [suggestions, setSuggestions] = useState<Array<ArtistObject>>([]);
 	const selectedArtists = useZustandStore(state => state.selectedArtists);
@@ -58,7 +59,7 @@ export function SearchArtist({ className }: { className?: string }) {
 
 	return (
 		<>
-			<div className={`flex flex-col gap-y-5 rounded-lg bg-black px-4 pb-4 pt-4 text-white shadow-lg ${className}`}>
+			<div className={`flex w-96 min-w-96 flex-col gap-y-5 rounded-lg bg-black px-4 pb-4 pt-4 text-white shadow-lg`}>
 				<div className='flex min-h-8 flex-row items-center gap-x-3'>
 					<label htmlFor='search_artist' className='rounded-lg px-2 text-lg outline outline-1'>
 						Artists
@@ -74,7 +75,7 @@ export function SearchArtist({ className }: { className?: string }) {
 										height={image.height!}
 										alt={artist.name}
 										title={artist.name}
-										className='h-8 w-8 rounded-full outline-dashed outline-1 outline-[#1ED760]'
+										className='h-8 max-h-8 w-8 min-w-8 rounded-full outline-dashed outline-1 outline-[#1ED760]'
 										onClick={() => removeArtist(artist.id)}
 									/>
 								</li>
@@ -84,7 +85,7 @@ export function SearchArtist({ className }: { className?: string }) {
 							return (
 								<li key={index}>
 									<div
-										className={`h-8 w-8 rounded-full outline-dashed outline-1 ${totalSelectionCount >= 5 ? 'outline-gray-500' : 'outline-white'}`}
+										className={`h-8 max-h-8 w-8 min-w-8 rounded-full outline-dashed outline-1 ${totalSelectionCount >= 5 ? 'outline-gray-500' : 'outline-white'}`}
 									></div>
 								</li>
 							);
@@ -106,7 +107,7 @@ export function SearchArtist({ className }: { className?: string }) {
 						return (
 							<li
 								key={artist.id}
-								className='flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 text-white hover:bg-[#1ED760] hover:text-[#121212]'
+								className='group flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 hover:bg-[#1ED760] hover:text-[#121212]'
 								onClick={() => updateSelection(artist)}
 							>
 								<Image
@@ -114,9 +115,16 @@ export function SearchArtist({ className }: { className?: string }) {
 									width={image.width!}
 									height={image.height!}
 									alt={artist.name}
-									className='h-12 w-12 rounded-full'
+									className='h-12 min-h-12 w-12 min-w-12 rounded-full'
 								/>
-								<h1>{artist.name}</h1>
+								<div className='flex w-full flex-col overflow-hidden'>
+									<h1 className='overflow-hidden text-ellipsis whitespace-nowrap text-white group-hover:text-[#121212]'>
+										{artist.name}
+									</h1>
+									<h1 className='overflow-hidden text-ellipsis whitespace-nowrap text-xs text-gray-400 group-hover:text-gray-200'>
+										{formatNumber(artist.followers.total)} Followers
+									</h1>
+								</div>
 							</li>
 						);
 					})}

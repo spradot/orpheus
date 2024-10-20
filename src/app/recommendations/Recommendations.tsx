@@ -17,7 +17,7 @@ export function Recommendations() {
 	return (
 		<div className='flex flex-row flex-wrap justify-center gap-x-2 gap-y-2 py-10'>
 			{recommendedTracks.map(track => {
-				return <TrackCard key={track.id} track={track} className='w-96' />;
+				return <TrackCard key={track.id} track={track} />;
 			})}
 		</div>
 	);

@@ -22,7 +22,7 @@ export function SearchGenre({ genres }: { genres: GetRecommendationGenresRespons
 	};
 
 	return (
-		<div className={`flex w-96 flex-col gap-y-5 rounded-lg bg-black px-4 pb-4 pt-4 text-white shadow-lg`}>
+		<div className={`flex w-96 min-w-96 flex-col gap-y-5 rounded-lg bg-black px-4 pb-4 pt-4 text-white shadow-lg`}>
 			<div className='flex min-h-8 flex-row items-center gap-x-3'>
 				<label htmlFor='search_genres' className='rounded-lg px-2 text-lg outline outline-1'>
 					Genres

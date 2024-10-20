@@ -61,7 +61,10 @@ export function TrackAttributeCard({
 			{trackAttributeValue.isActive ? (
 				<div className='flex flex-col gap-y-4'>
 					<div className='flex flex-row items-center justify-between gap-x-2'>
-						<label htmlFor='' className='w-[7ch] rounded-md text-center text-sm capitalize outline outline-1'>
+						<label
+							htmlFor={`min-${trackAttributeName}`}
+							className='w-[7ch] rounded-md text-center text-sm capitalize outline outline-1'
+						>
 							Min
 						</label>
 						<input
@@ -80,7 +83,10 @@ export function TrackAttributeCard({
 						</h1>
 					</div>
 					<div className='flex flex-row items-center justify-between gap-x-2'>
-						<label htmlFor='' className='w-[7ch] rounded-md text-center text-sm capitalize outline outline-1'>
+						<label
+							htmlFor={`target-${trackAttributeName}`}
+							className='w-[7ch] rounded-md text-center text-sm capitalize outline outline-1'
+						>
 							Target
 						</label>
 						<input
@@ -99,7 +105,10 @@ export function TrackAttributeCard({
 						</h1>
 					</div>
 					<div className='flex flex-row items-center justify-between gap-x-2'>
-						<label htmlFor='' className='w-[7ch] rounded-md text-center text-sm capitalize outline outline-1'>
+						<label
+							htmlFor={`max-${trackAttributeName}`}
+							className='w-[7ch] rounded-md text-center text-sm capitalize outline outline-1'
+						>
 							Max
 						</label>
 						<input

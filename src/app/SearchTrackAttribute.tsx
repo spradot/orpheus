@@ -20,7 +20,7 @@ const TRACK_ATTRIBUTES: Array<TrackAttributeName> = [
 
 export function SearchTrackAttribute() {
 	return (
-		<div className='flex w-96 flex-col gap-y-5 rounded-lg bg-black/30 px-4 pb-4 pt-4 text-white shadow-lg outline-dashed outline-1 outline-gray-400'>
+		<div className='flex w-96 min-w-96 flex-col gap-y-5 rounded-lg bg-black/30 px-4 pb-4 pt-4 text-white shadow-lg outline-dashed outline-1 outline-gray-400'>
 			<div className='flex min-h-8 flex-row items-center gap-x-3'>
 				<label htmlFor='' className='rounded-lg px-2 text-lg outline outline-1'>
 					Track Attributes
