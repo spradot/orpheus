@@ -4,6 +4,7 @@ import { useZustandStore } from '@/util/store';
 import { formatNumber } from '@/util/utils';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { CiUser } from 'react-icons/ci';
 import type { ArtistObject } from 'spotify-api-types';
 import type { ApiArtistsResponse } from './api/artists/route';
 
@@ -103,20 +104,24 @@ export function SearchArtist() {
 				/>
 				<ul className='flex flex-col gap-y-1'>
 					{suggestions.map(artist => {
-						const image = artist.images.at(0)!;
+						const image = artist.images.at(0);
 						return (
 							<li
 								key={artist.id}
 								className='group flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 hover:bg-[#1ED760] hover:text-[#121212]'
 								onClick={() => updateSelection(artist)}
 							>
-								<Image
-									src={image.url}
-									width={image.width!}
-									height={image.height!}
-									alt={artist.name}
-									className='h-12 min-h-12 w-12 min-w-12 rounded-full'
-								/>
+								{image ? (
+									<Image
+										src={image.url}
+										width={image.width!}
+										height={image.height!}
+										alt={artist.name}
+										className='h-12 min-h-12 w-12 min-w-12 rounded-full'
+									/>
+								) : (
+									<CiUser className='h-12 min-h-12 w-12 min-w-12 rounded-full fill-white' />
+								)}
 								<div className='flex w-full flex-col overflow-hidden'>
 									<h1 className='overflow-hidden text-ellipsis whitespace-nowrap text-white group-hover:text-[#121212]'>
 										{artist.name}
