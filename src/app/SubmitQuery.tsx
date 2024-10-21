@@ -4,7 +4,7 @@ import { type RawTrackAttributeValue, useZustandStore } from '@/util/store';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { GetRecommendationsQuery } from 'spotify-api-types';
-import type { ApiRecommendationsResponse } from './api/recommendations/route';
+import type { ApiPostRecommendationsResponse } from './api/recommendations/route';
 
 export function SubmitQuery({ className }: { className?: string }) {
 	const selectedArtists = useZustandStore(state => state.selectedArtists);
@@ -40,22 +40,26 @@ export function SubmitQuery({ className }: { className?: string }) {
 			...rawAttributes,
 		};
 		const res = await fetch(url, { method: 'POST', body: JSON.stringify(body) });
-		const data: ApiRecommendationsResponse = await res.json();
-		setRecommendedTracks(data.tracks);
-		router.push('/recommendations', { scroll: true });
-		setIsFetching(false);
+		const data: ApiPostRecommendationsResponse = await res.json();
+		if (!data) {
+			setRecommendedTracks(null);
+			alert('Found Nothing To Recommend');
+			setIsFetching(false);
+		} else {
+			setRecommendedTracks(data.tracks);
+			router.push(`/recommendations/${data.id}`, { scroll: true });
+			setIsFetching(false);
+		}
 	};
 
 	return (
-		<>
-			<input
-				type='button'
-				onClick={buildAndSubmitQuery}
-				value={isFetching ? 'Fetching' : 'Submit'}
-				title={isMissingRequiredFields ? `Select at least one seed Track/Artist/Genre` : ''}
-				className={`h-fit w-fit rounded-md px-3 py-1 shadow-md ${isMissingRequiredFields || isFetching ? 'cursor-not-allowed bg-gray-400' : 'cursor-pointer bg-[#1ED760] text-[#121212] hover:bg-green-600'} ${className}`}
-				disabled={isMissingRequiredFields || isFetching}
-			/>
-		</>
+		<input
+			type='button'
+			onClick={buildAndSubmitQuery}
+			value={isFetching ? 'Fetching' : 'Submit'}
+			title={isMissingRequiredFields ? `Select at least one seed Track/Artist/Genre` : ''}
+			className={`h-fit w-fit rounded-md px-3 py-1 shadow-md ${isMissingRequiredFields || isFetching ? 'cursor-not-allowed bg-gray-400' : 'cursor-pointer bg-[#1ED760] text-[#121212] hover:bg-green-600'} ${className}`}
+			disabled={isMissingRequiredFields || isFetching}
+		/>
 	);
 }

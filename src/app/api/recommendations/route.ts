@@ -1,12 +1,13 @@
-import { getAccessToken } from '@/util/utils';
+import { createBase64Id, getAccessToken, redis } from '@/util/utils';
 import type { GetRecommendationsQuery, GetRecommendationsResponse, TrackObject } from 'spotify-api-types';
 
 /**
  * POST `/api/recommendations`
  */
-export interface ApiRecommendationsResponse {
+export type ApiPostRecommendationsResponse = {
+	id: string;
 	tracks: Array<TrackObject>;
-}
+} | null;
 
 export async function POST(request: Request) {
 	const body: GetRecommendationsQuery = await request.json();
@@ -34,7 +35,10 @@ export async function POST(request: Request) {
 		const error = await res.text();
 		console.log(error);
 	}
-	const data: GetRecommendationsResponse = await res.json();
-	const resBody: ApiRecommendationsResponse = { tracks: data.tracks as TrackObject[] };
+	const { tracks }: GetRecommendationsResponse = await res.json();
+	if (tracks.length === 0) return Response.json(null);
+	const id = createBase64Id();
+	const resBody: ApiPostRecommendationsResponse = { id, tracks };
+	redis.set(id, resBody);
 	return Response.json(resBody);
 }

@@ -1,7 +1,8 @@
 import { Redis } from '@upstash/redis';
+import { randomBytes } from 'crypto';
 import type { ClientCredentialsFlowAccessTokenObject } from 'spotify-api-types';
 
-const redis = new Redis({
+export const redis = new Redis({
 	url: process.env['KV_URL'],
 	token: process.env['KV_TOKEN'],
 });
@@ -46,4 +47,11 @@ export function formatNumber(num: number) {
 	} else {
 		return num.toString();
 	}
+}
+
+export function createBase64Id() {
+	// Generate 9 random bytes (64 bits) to create base64 string of len 12
+	const buffer = randomBytes(9);
+	const base64String = buffer.toString('base64url');
+	return base64String;
 }

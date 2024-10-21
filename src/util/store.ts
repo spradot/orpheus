@@ -6,8 +6,8 @@ interface ArtistStore {
 	addArtist: (artist: ArtistObject) => void;
 	removeArtist: (artistId: string) => void;
 
-	recommendedTracks: Array<TrackObject>;
-	setRecommendedTracks: (tracks: Array<TrackObject>) => void;
+	recommendedTracks: Array<TrackObject> | null;
+	setRecommendedTracks: (tracks: Array<TrackObject> | null) => void;
 
 	selectedGenres: Array<string>;
 	updateSelectedGenres: (genres: Array<string>) => void;

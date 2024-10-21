@@ -1,17 +1,33 @@
 'use client';
 
 import { useZustandStore } from '@/util/store';
+import { type ApiGetRecommendationsResponse } from '../api/recommendations/[id]/route';
 import { TrackCard } from '../TrackCard';
 
-export function Recommendations() {
+export function Recommendations({ id }: { id: string }) {
 	const recommendedTracks = useZustandStore(state => state.recommendedTracks);
+	const setRecommendedTracks = useZustandStore(state => state.setRecommendedTracks);
 
-	if (recommendedTracks.length === 0) {
+	if (!recommendedTracks) {
 		return (
 			<div className='flex h-screen flex-col items-center justify-center'>
-				<h1 className='text-xl text-white'>Found Nothing To Recommend</h1>
+				<h1 className='text-xl text-white'>404 | Page Does Not Exist</h1>
 			</div>
 		);
+	}
+
+	const fetchStoredTracks = async () => {
+		const res = await fetch(`/api/recommendations/${id}`);
+		const data: ApiGetRecommendationsResponse = await res.json();
+		if (data) {
+			setRecommendedTracks(data.tracks);
+		} else {
+			setRecommendedTracks(null);
+		}
+	};
+
+	if (recommendedTracks.length === 0) {
+		fetchStoredTracks();
 	}
 
 	return (
