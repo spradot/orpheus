@@ -38,7 +38,7 @@ export async function POST(request: Request) {
 	const { tracks }: GetRecommendationsResponse = await res.json();
 	if (tracks.length === 0) return Response.json(null);
 	const id = createBase64Id();
-	const resBody: ApiPostRecommendationsResponse = { id, tracks };
+	const resBody: ApiPostRecommendationsResponse = { id, tracks } as { id: string; tracks: Array<TrackObject> }; // Temp solution, need to fix type in spotify-api-types
 	redis.set(id, resBody);
 	return Response.json(resBody);
 }
