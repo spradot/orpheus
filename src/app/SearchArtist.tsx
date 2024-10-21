@@ -67,18 +67,26 @@ export function SearchArtist() {
 					</label>
 					<ul className='flex flex-row gap-x-2'>
 						{selectedArtists.map(artist => {
-							const image = artist.images.at(0)!;
+							const image = artist.images.at(0);
 							return (
 								<li key={artist.id} className='cursor-pointer'>
-									<Image
-										src={image.url}
-										width={image.width!}
-										height={image.height!}
-										alt={artist.name}
-										title={artist.name}
-										className='h-8 max-h-8 w-8 min-w-8 rounded-full outline-dashed outline-1 outline-[#1ED760]'
-										onClick={() => removeArtist(artist.id)}
-									/>
+									{image ? (
+										<Image
+											src={image.url}
+											width={image.width!}
+											height={image.height!}
+											alt={artist.name}
+											title={artist.name}
+											className='h-8 max-h-8 w-8 min-w-8 rounded-full outline-dashed outline-1 outline-[#1ED760]'
+											onClick={() => removeArtist(artist.id)}
+										/>
+									) : (
+										<CiUser
+											className='h-8 max-h-8 w-8 min-w-8 rounded-full fill-white outline-dashed outline-1 outline-[#1ED760]'
+											onClick={() => removeArtist(artist.id)}
+											title={artist.name}
+										/>
+									)}
 								</li>
 							);
 						})}
