@@ -1,11 +1,11 @@
+import { SearchArtist } from '@/components/SearchArtist';
+import { SearchGenre } from '@/components/SearchGenre';
+import { SearchTrack } from '@/components/SearchTrack';
+import { SearchTrackAttribute } from '@/components/SearchTrackAttribute';
+import { SubmitQuery } from '@/components/SubmitQuery';
 import { getAccessToken } from '@/util/utils';
 import { unstable_cache } from 'next/cache';
 import { type GetRecommendationGenresResponse } from 'spotify-api-types';
-import { SearchArtist } from './SearchArtist';
-import { SearchGenre } from './SearchGenre';
-import { SearchTrack } from './SearchTrack';
-import { SearchTrackAttribute } from './SearchTrackAttribute';
-import { SubmitQuery } from './SubmitQuery';
 
 // One week in seconds (60 * 60 * 24 * 7 = 604800 seconds)
 const ONE_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;

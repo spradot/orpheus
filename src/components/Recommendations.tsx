@@ -2,8 +2,8 @@
 
 import { useZustandStore } from '@/util/store';
 import { useEffect } from 'react';
-import { type ApiGetRecommendationsResponse } from '../api/recommendations/[id]/route';
-import { TrackCard } from '../TrackCard';
+import { type ApiGetRecommendationsResponse } from '../app/api/recommendations/[id]/route';
+import { TrackCard } from './TrackCard';
 
 export function Recommendations({ id }: { id: string }) {
 	const recommendedTracks = useZustandStore(state => state.recommendedTracks);

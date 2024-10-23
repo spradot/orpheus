@@ -1,11 +1,11 @@
 'use client';
 
+import { type ApiTracksResponse } from '@/app/api/tracks/route';
 import { useZustandStore } from '@/util/store';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { MdExplicit } from 'react-icons/md';
 import type { TrackObject } from 'spotify-api-types';
-import type { ApiTracksResponse } from './api/tracks/route';
 
 export function SearchTrack() {
 	const [query, setQuery] = useState('');

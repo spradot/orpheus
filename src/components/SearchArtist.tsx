@@ -1,12 +1,12 @@
 'use client';
 
+import { type ApiArtistsResponse } from '@/app/api/artists/route';
 import { useZustandStore } from '@/util/store';
 import { formatNumber } from '@/util/utils';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { CiUser } from 'react-icons/ci';
 import type { ArtistObject } from 'spotify-api-types';
-import type { ApiArtistsResponse } from './api/artists/route';
 
 export function SearchArtist() {
 	const [query, setQuery] = useState('');

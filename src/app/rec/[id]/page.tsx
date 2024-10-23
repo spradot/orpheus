@@ -1,4 +1,4 @@
-import { Recommendations } from '@/app/rec/Recommendations';
+import { Recommendations } from '@/components/Recommendations';
 
 export default async function RecommendationsPage({ params }: { params: Promise<{ id: string }> }) {
 	const { id } = await params;

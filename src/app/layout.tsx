@@ -1,6 +1,6 @@
+import { Navbar } from '@/components/Navbar';
 import type { Metadata } from 'next';
 import './globals.css';
-import { Navbar } from './Navbar';
 
 export const metadata: Metadata = {
 	title: 'Orpheus',

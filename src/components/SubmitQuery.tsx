@@ -1,10 +1,10 @@
 'use client';
 
+import { type ApiPostRecommendationsResponse } from '@/app/api/recommendations/route';
 import { type RawTrackAttributeValue, useZustandStore } from '@/util/store';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { GetRecommendationsQuery } from 'spotify-api-types';
-import type { ApiPostRecommendationsResponse } from './api/recommendations/route';
 
 export function SubmitQuery({ className }: { className?: string }) {
 	const selectedArtists = useZustandStore(state => state.selectedArtists);
