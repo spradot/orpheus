@@ -1,13 +1,15 @@
-import { createBase64Id, getAccessToken, redis } from '@/util/utils';
+import { createBase64Id, getAccessToken, RecommendedTrack, redis } from '@/util/utils';
 import type { GetRecommendationsQuery, GetRecommendationsResponse, TrackObject } from 'spotify-api-types';
+
+export interface RecommendedationData {
+	id: string;
+	recTracks: Array<RecommendedTrack>;
+}
 
 /**
  * POST `/api/recommendations`
  */
-export type ApiPostRecommendationsResponse = {
-	id: string;
-	tracks: Array<TrackObject>;
-} | null;
+export type ApiPostRecommendationsResponse = RecommendedationData | null;
 
 export async function POST(request: Request) {
 	const body: GetRecommendationsQuery = await request.json();
@@ -38,7 +40,9 @@ export async function POST(request: Request) {
 	const { tracks }: GetRecommendationsResponse = await res.json();
 	if (tracks.length === 0) return Response.json(null);
 	const id = createBase64Id();
-	const resBody: ApiPostRecommendationsResponse = { id, tracks } as { id: string; tracks: Array<TrackObject> }; // Temp solution, need to fix type in spotify-api-types
+	const recTracks = tracks.map(track => new RecommendedTrack(track as TrackObject)); // Temp solution, need to fix type in spotify-api-types
+	const resBody: ApiPostRecommendationsResponse = { id, recTracks };
+
 	redis.set(id, resBody);
 	return Response.json(resBody);
 }

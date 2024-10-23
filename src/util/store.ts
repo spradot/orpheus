@@ -1,13 +1,14 @@
 import type { ArtistObject, GetRecommendationsQuery, TrackObject } from 'spotify-api-types';
 import { create } from 'zustand';
+import { type RecommendedTrack } from './utils';
 
 interface ArtistStore {
 	selectedArtists: Array<ArtistObject>;
 	addArtist: (artist: ArtistObject) => void;
 	removeArtist: (artistId: string) => void;
 
-	recommendedTracks: Array<TrackObject> | null;
-	setRecommendedTracks: (tracks: Array<TrackObject> | null) => void;
+	recommendedTracks: Array<RecommendedTrack> | null;
+	setRecommendedTracks: (tracks: Array<RecommendedTrack> | null) => void;
 
 	selectedGenres: Array<string>;
 	updateSelectedGenres: (genres: Array<string>) => void;

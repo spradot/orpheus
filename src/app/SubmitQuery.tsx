@@ -43,11 +43,12 @@ export function SubmitQuery({ className }: { className?: string }) {
 		const data: ApiPostRecommendationsResponse = await res.json();
 		if (!data) {
 			setRecommendedTracks(null);
+			// TODO Show a modal instead of alert
 			alert('Found Nothing To Recommend');
 			setIsFetching(false);
 		} else {
-			setRecommendedTracks(data.tracks);
-			router.push(`/recommendations/${data.id}`, { scroll: true });
+			setRecommendedTracks(data.recTracks);
+			router.push(`/rec/${data.id}`, { scroll: true });
 			setIsFetching(false);
 		}
 	};
