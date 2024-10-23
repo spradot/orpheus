@@ -1,5 +1,6 @@
 'use client';
 
+import { type RecommendedationData } from '@/app/api/recommendations/route';
 import { useZustandStore } from '@/util/store';
 import { useEffect } from 'react';
 import { type ApiGetRecommendationsResponse } from '../app/api/recommendations/[id]/route';
@@ -11,16 +12,27 @@ export function Recommendations({ id }: { id: string }) {
 
 	useEffect(() => {
 		const fetchStoredTracks = async () => {
+			const cachedResults = window.localStorage.getItem(`rec:${id}`);
+			if (cachedResults) {
+				const cachedRecData: RecommendedationData = JSON.parse(cachedResults);
+				return setRecommendedTracks(cachedRecData.recTracks);
+			}
 			const res = await fetch(`/api/recommendations/${id}`);
 			const data: ApiGetRecommendationsResponse = await res.json();
 			if (!data) return setRecommendedTracks(null);
 			setRecommendedTracks(data.recTracks);
+			window.localStorage.setItem(`rec:${id}`, JSON.stringify(data));
 		};
 
 		if (!recommendedTracks) return;
 
 		if (recommendedTracks.length === 0) {
 			fetchStoredTracks();
+		} else {
+			window.localStorage.setItem(
+				`rec:${id}`,
+				JSON.stringify({ id, recTracks: recommendedTracks } satisfies RecommendedationData),
+			);
 		}
 	}, [recommendedTracks, setRecommendedTracks, id]);
 
