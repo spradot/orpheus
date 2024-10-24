@@ -1,9 +1,6 @@
-import { getAccessToken } from '@/util/utils';
+import { getAccessToken, ONCE_A_WEEK } from '@/util/utils';
 import { unstable_cache } from 'next/cache';
 import type { GetSearchResponse, TrackObject } from 'spotify-api-types';
-
-// One week in seconds (60 * 60 * 24 * 7 = 604800 seconds)
-const ONE_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
 /**
  * GET `/api/tracks`
@@ -28,7 +25,7 @@ async function fetchTracks(query: string): Promise<GetSearchResponse['tracks']> 
 
 const getCachedTracks = unstable_cache(async (query: string) => fetchTracks(query), ['cached-tracks'], {
 	tags: ['cached-tracks'],
-	revalidate: ONE_WEEK_IN_SECONDS,
+	revalidate: ONCE_A_WEEK,
 });
 
 export async function GET(request: Request) {

@@ -1,3 +1,4 @@
+import { Limit } from '@/components/Limit';
 import { SearchArtist } from '@/components/SearchArtist';
 import { SearchGenre } from '@/components/SearchGenre';
 import { SearchTrack } from '@/components/SearchTrack';
@@ -6,9 +7,6 @@ import { SubmitQuery } from '@/components/SubmitQuery';
 import { getAccessToken } from '@/util/utils';
 import { unstable_cache } from 'next/cache';
 import { type GetRecommendationGenresResponse } from 'spotify-api-types';
-
-// One week in seconds (60 * 60 * 24 * 7 = 604800 seconds)
-const ONE_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
 async function fetchGenres(): Promise<GetRecommendationGenresResponse['genres']> {
 	const url = 'https://api.spotify.com/v1/recommendations/available-genre-seeds';
@@ -26,20 +24,22 @@ async function fetchGenres(): Promise<GetRecommendationGenresResponse['genres']>
 
 const getCachedGenres = unstable_cache(async () => fetchGenres(), ['cached-genres'], {
 	tags: ['cached-genres'],
-	revalidate: ONE_WEEK_IN_SECONDS,
 });
 
 export default async function Home() {
 	const genres = await getCachedGenres();
 
 	return (
-		<div className='mt-4 flex flex-col items-center gap-x-2 gap-y-8 px-4 py-4'>
+		<div className='flex flex-col items-center gap-x-2 gap-y-8 px-4 py-5'>
 			<div className='flex w-full flex-col items-center gap-y-4 xl:flex-row xl:flex-wrap xl:items-baseline xl:justify-center xl:gap-x-4'>
 				<SearchArtist />
 				<SearchTrack />
-				<div className='flex w-full flex-col items-center gap-y-4 xl:flex-row xl:flex-wrap xl:items-baseline xl:justify-center xl:gap-x-4'>
+				<div className='flex w-full flex-col items-center gap-y-4 xl:flex-row xl:items-baseline xl:justify-center xl:gap-x-4'>
 					<SearchGenre genres={genres} />
-					<SearchTrackAttribute />
+					<div className='flex flex-col items-center gap-y-4'>
+						<SearchTrackAttribute />
+						<Limit />
+					</div>
 				</div>
 			</div>
 			<SubmitQuery />

@@ -90,3 +90,13 @@ export class RecommendedTrack {
 		this.albumCover = { url: albumCover.url, height: albumCover.height ?? null, width: albumCover.width ?? null };
 	}
 }
+
+/**
+ * One week in seconds: `1 * 7 * 24 * 60 * 60 = 604800` seconds
+ */
+export const ONCE_A_WEEK = 1 * 7 * 24 * 60 * 60;
+
+/**
+ * One month in seconds: `1 * 28 * 24 * 60 * 60 = 2419200` seconds
+ */
+export const ONCE_A_MONTH = 1 * 28 * 24 * 60 * 60;

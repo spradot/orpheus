@@ -1,9 +1,6 @@
-import { getAccessToken } from '@/util/utils';
+import { getAccessToken, ONCE_A_MONTH } from '@/util/utils';
 import { unstable_cache } from 'next/cache';
 import type { ArtistObject, GetSearchResponse } from 'spotify-api-types';
-
-// One week in seconds (60 * 60 * 24 * 7 = 604800 seconds)
-const ONE_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
 /**
  * GET `/api/artists`
@@ -28,7 +25,7 @@ async function fetchArtist(query: string): Promise<GetSearchResponse['artists']>
 
 const getCachedArtists = unstable_cache(async (query: string) => fetchArtist(query), ['cached-artists'], {
 	tags: ['cached-artists'],
-	revalidate: ONE_WEEK_IN_SECONDS,
+	revalidate: ONCE_A_MONTH,
 });
 
 export async function GET(request: Request) {

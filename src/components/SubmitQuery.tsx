@@ -10,6 +10,7 @@ export function SubmitQuery({ className }: { className?: string }) {
 	const selectedArtists = useZustandStore(state => state.selectedArtists);
 	const selectedTracks = useZustandStore(state => state.selectedTracks);
 	const selectedGenres = useZustandStore(state => state.selectedGenres);
+	const selectedLimit = useZustandStore(state => state.selectedLimit);
 	const selectedTrackAttributes = useZustandStore(state => state.selectedTrackAttributes);
 	const setRecommendedTracks = useZustandStore(state => state.setRecommendedTracks);
 	const router = useRouter();
@@ -37,6 +38,7 @@ export function SubmitQuery({ className }: { className?: string }) {
 			seed_artists: selectedArtists.map(artist => artist.id),
 			seed_genres: selectedGenres,
 			seed_tracks: selectedTracks.map(track => track.id),
+			limit: selectedLimit,
 			...rawAttributes,
 		};
 		const res = await fetch(url, { method: 'POST', body: JSON.stringify(body) });

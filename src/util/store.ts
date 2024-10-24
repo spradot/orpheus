@@ -17,6 +17,9 @@ interface ArtistStore {
 	addTrack: (track: TrackObject) => void;
 	removeTrack: (trackId: string) => void;
 
+	selectedLimit: number;
+	setSelectedLimit: (limit: number) => void;
+
 	selectedTrackAttributes: Map<TrackAttributeName, TrackAttributeValue>;
 	updateSelectedTrackAttributes: (
 		trackAttributeName: TrackAttributeName,
@@ -49,6 +52,11 @@ export const useZustandStore = create<ArtistStore>(set => ({
 	},
 	removeTrack: trackId => {
 		set(state => ({ selectedTracks: state.selectedTracks.filter(track => track.id !== trackId) }));
+	},
+
+	selectedLimit: 20,
+	setSelectedLimit: limit => {
+		set(() => ({ selectedLimit: limit }));
 	},
 
 	selectedTrackAttributes: initDefaultAttributeValues(),
