@@ -1,3 +1,4 @@
+import { Dialog } from '@/components/Dialog';
 import { Navbar } from '@/components/Navbar';
 import type { Metadata } from 'next';
 import './globals.css';
@@ -15,6 +16,7 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className='bg-slate-900/85'>
+				<Dialog />
 				<Navbar />
 				{children}
 			</body>

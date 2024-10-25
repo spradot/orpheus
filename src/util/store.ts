@@ -20,6 +20,9 @@ interface ArtistStore {
 	selectedLimit: number;
 	setSelectedLimit: (limit: number) => void;
 
+	showDialog: boolean;
+	setShowDialog: (showDialog: boolean) => void;
+
 	selectedTrackAttributes: Map<TrackAttributeName, TrackAttributeValue>;
 	updateSelectedTrackAttributes: (
 		trackAttributeName: TrackAttributeName,
@@ -57,6 +60,18 @@ export const useZustandStore = create<ArtistStore>(set => ({
 	selectedLimit: 20,
 	setSelectedLimit: limit => {
 		set(() => ({ selectedLimit: limit }));
+	},
+
+	showDialog: false,
+	setShowDialog: showDialog => {
+		set(() => {
+			if (showDialog) {
+				document.body.style.overflow = 'hidden';
+			} else {
+				document.body.style.overflow = '';
+			}
+			return { showDialog };
+		});
 	},
 
 	selectedTrackAttributes: initDefaultAttributeValues(),
