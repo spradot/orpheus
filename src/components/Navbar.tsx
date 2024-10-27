@@ -1,9 +1,14 @@
-import { BsGithub, BsTwitter } from 'react-icons/bs';
+import { BsGithub } from 'react-icons/bs';
+import { FaXTwitter } from 'react-icons/fa6';
+import { GiLyre } from 'react-icons/gi';
 
 export function Navbar() {
 	return (
 		<nav className='flex flex-row items-center justify-between bg-[#1ED760] px-6 py-1 shadow-md'>
-			<h1 className='text-2xl uppercase text-[#121212]'>Orpheus</h1>
+			<div className='flex flex-row items-center text-[#121212]'>
+				<GiLyre className='h-8 w-8' />
+				<span className='text-2xl uppercase'>rpheus</span>
+			</div>
 			<div className='flex flex-row gap-x-5'>
 				<a
 					href='https://github.com/iShibi'
@@ -12,7 +17,7 @@ export function Navbar() {
 					rel='noopener noreferrer'
 					className=''
 				>
-					<BsGithub className='h-6 w-6' />
+					<BsGithub className='h-8 w-8' />
 				</a>
 				<a
 					href='https://twitter.com/iShiibi'
@@ -21,7 +26,7 @@ export function Navbar() {
 					rel='noopener noreferrer'
 					className=''
 				>
-					<BsTwitter className='h-6 w-6' />
+					<FaXTwitter className='h-8 w-8' />
 				</a>
 			</div>
 		</nav>
