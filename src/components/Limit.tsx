@@ -10,7 +10,9 @@ export function Limit() {
 		<div className='flex w-96 min-w-96 flex-col items-center rounded-lg bg-black/30 px-4 pb-4 pt-4 text-white shadow-lg outline-dashed outline-1 outline-gray-400'>
 			<div className={`flex h-fit w-72 flex-col gap-y-4 rounded-lg bg-black px-4 py-4 text-white shadow-lg`}>
 				<div className='flex flex-row items-center justify-between'>
-					<h1 className='rounded-lg px-2 text-sm capitalize outline outline-1'>Limit</h1>
+					<label htmlFor='limit' className='rounded-lg px-2 text-sm capitalize outline outline-1'>
+						Limit
+					</label>
 					<h1 className='min-w-[4ch] max-w-[4ch] rounded-md text-center outline outline-1'>{selectedLimit}</h1>
 				</div>
 				<input
