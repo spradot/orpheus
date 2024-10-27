@@ -20,8 +20,11 @@ interface ArtistStore {
 	selectedLimit: number;
 	setSelectedLimit: (limit: number) => void;
 
-	showDialog: boolean;
-	setShowDialog: (showDialog: boolean) => void;
+	dialog: {
+		isActive: boolean;
+		description: string;
+	};
+	setDialog: (dialog: { isActive: boolean; description: string }) => void;
 
 	selectedTrackAttributes: Map<TrackAttributeName, TrackAttributeValue>;
 	updateSelectedTrackAttributes: (
@@ -62,15 +65,18 @@ export const useZustandStore = create<ArtistStore>(set => ({
 		set(() => ({ selectedLimit: limit }));
 	},
 
-	showDialog: false,
-	setShowDialog: showDialog => {
+	dialog: {
+		isActive: false,
+		description: '',
+	},
+	setDialog: dialog => {
 		set(() => {
-			if (showDialog) {
+			if (dialog.isActive) {
 				document.body.style.overflow = 'hidden';
 			} else {
 				document.body.style.overflow = '';
 			}
-			return { showDialog };
+			return { dialog };
 		});
 	},
 

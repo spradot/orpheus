@@ -5,7 +5,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
 	title: 'Orpheus',
-	description: 'Get music recommendations based on artists, tracks, genres, and track attributes',
+	description: 'Get music recommendations based on artists, tracks, genres, and track attributes.',
 	twitter: {
 		card: 'summary',
 	},

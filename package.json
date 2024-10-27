@@ -1,7 +1,7 @@
 {
 	"name": "orpheus",
 	"version": "0.1.0",
-	"description": "Get music recommendations based on artists, tracks, genres, and track attributes",
+	"description": "Get music recommendations based on artists, tracks, genres, and track attributes.",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",

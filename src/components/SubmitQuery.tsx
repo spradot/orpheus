@@ -15,7 +15,7 @@ export function SubmitQuery({ className }: { className?: string }) {
 	const setRecommendedTracks = useZustandStore(state => state.setRecommendedTracks);
 	const router = useRouter();
 	const [isFetching, setIsFetching] = useState(false);
-	const setShowDialog = useZustandStore(state => state.setShowDialog);
+	const setDialog = useZustandStore(state => state.setDialog);
 	const isMissingRequiredFields =
 		selectedArtists.length + selectedGenres.length + selectedTracks.length === 0 ? true : false;
 
@@ -46,7 +46,7 @@ export function SubmitQuery({ className }: { className?: string }) {
 		const data: ApiPostRecommendationsResponse = await res.json();
 		if (!data) {
 			setRecommendedTracks(null);
-			setShowDialog(true);
+			setDialog({ isActive: true, description: 'Found Nothing to Recommend' });
 			setIsFetching(false);
 		} else {
 			setRecommendedTracks(data.recTracks);

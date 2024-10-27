@@ -13,11 +13,10 @@ export function SearchTrack() {
 	const selectedTracks = useZustandStore(state => state.selectedTracks);
 	const addTrack = useZustandStore(state => state.addTrack);
 	const removeTrack = useZustandStore(state => state.removeTrack);
-
 	const selectedArtists = useZustandStore(state => state.selectedArtists);
 	const selectedGenres = useZustandStore(state => state.selectedGenres);
-
 	const totalSelectionCount = selectedArtists.length + selectedGenres.length + selectedTracks.length;
+	const setDialog = useZustandStore(state => state.setDialog);
 
 	useEffect(() => {
 		if (query === '') {
@@ -47,12 +46,16 @@ export function SearchTrack() {
 
 	const updateSelection = (track: TrackObject) => {
 		if (totalSelectionCount >= 5) {
-			// Show that cannot add more than 5
-			return;
+			return setDialog({
+				isActive: true,
+				description: 'You can select a maximum of 5 seed values in total from Artists, Tracks, and Genres.',
+			});
 		}
 		if (selectedTracks.find(t => t.id === track.id)) {
-			// show that cannot add same track again
-			return;
+			return setDialog({
+				isActive: true,
+				description: `You've already selected this Track.`,
+			});
 		}
 		addTrack(track);
 	};
@@ -106,7 +109,7 @@ export function SearchTrack() {
 					return (
 						<li
 							key={track.id}
-							className='group flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 hover:bg-[#1ED760] hover:text-[#121212]'
+							className='group flex cursor-pointer select-none flex-row items-center gap-x-2 rounded-full px-1 py-1 hover:bg-[#1ED760]'
 							onClick={() => updateSelection(track)}
 						>
 							<Image
