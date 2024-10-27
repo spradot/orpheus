@@ -1,7 +1,7 @@
 'use client';
 
 import { type RecommendedationData } from '@/app/api/recommendations/route';
-import { useZustandStore } from '@/util/store';
+import { useZustandStore } from '@/util/client/store';
 import { useEffect } from 'react';
 import { type ApiGetRecommendationsResponse } from '../app/api/recommendations/[id]/route';
 import { TrackCard } from './TrackCard';

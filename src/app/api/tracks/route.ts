@@ -1,4 +1,4 @@
-import { getAccessToken, ONCE_A_WEEK } from '@/util/utils';
+import { getAccessToken, ONCE_A_WEEK } from '@/util/server';
 import { unstable_cache } from 'next/cache';
 import type { GetSearchResponse, TrackObject } from 'spotify-api-types';
 

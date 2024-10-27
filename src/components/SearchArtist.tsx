@@ -1,8 +1,8 @@
 'use client';
 
 import { type ApiArtistsResponse } from '@/app/api/artists/route';
-import { useZustandStore } from '@/util/store';
-import { formatNumber } from '@/util/utils';
+import { formatNumber } from '@/util/client';
+import { useZustandStore } from '@/util/client/store';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { CiUser } from 'react-icons/ci';

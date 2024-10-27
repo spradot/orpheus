@@ -4,7 +4,7 @@ import { SearchGenre } from '@/components/SearchGenre';
 import { SearchTrack } from '@/components/SearchTrack';
 import { SearchTrackAttribute } from '@/components/SearchTrackAttribute';
 import { SubmitQuery } from '@/components/SubmitQuery';
-import { getAccessToken } from '@/util/utils';
+import { getAccessToken } from '@/util/server';
 import { unstable_cache } from 'next/cache';
 import { type GetRecommendationGenresResponse } from 'spotify-api-types';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useZustandStore } from '@/util/store';
+import { useZustandStore } from '@/util/client/store';
 import { BiX } from 'react-icons/bi';
 
 export function Dialog() {

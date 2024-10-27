@@ -1,6 +1,6 @@
-import { redis } from '@/util/utils';
+import { redis } from '@/util/server';
 import { unstable_cache } from 'next/cache';
-import { type RecommendedationData } from '../route';
+import type { RecommendedationData } from '../route';
 
 async function fetchRec(id: string) {
 	console.log('Fetching Recomendations From Redis');

@@ -1,4 +1,4 @@
-import { type RecommendedTrack } from '@/util/utils';
+import type { RecommendedTrack } from '@/util/RecommendedTrack';
 import { FaSpotify } from 'react-icons/fa';
 import { MdExplicit } from 'react-icons/md';
 import { BlurImage } from './BlurImage';

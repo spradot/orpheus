@@ -1,4 +1,4 @@
-import { type TrackAttributeName } from '@/util/store';
+import { type TrackAttributeName } from '@/util/client/store';
 import { TrackAttributeCard } from './TrackAttributeCard';
 
 const TRACK_ATTRIBUTES: Array<TrackAttributeName> = [

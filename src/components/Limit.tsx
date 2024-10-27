@@ -1,6 +1,6 @@
 'use client';
 
-import { useZustandStore } from '@/util/store';
+import { useZustandStore } from '@/util/client/store';
 
 export function Limit() {
 	const selectedLimit = useZustandStore(state => state.selectedLimit);

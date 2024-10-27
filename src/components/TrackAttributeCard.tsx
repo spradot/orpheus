@@ -1,6 +1,6 @@
 'use client';
 
-import { type TrackAttributeName, useZustandStore } from '@/util/store';
+import { type TrackAttributeName, useZustandStore } from '@/util/client/store';
 import type { ChangeEvent } from 'react';
 
 export function TrackAttributeCard({

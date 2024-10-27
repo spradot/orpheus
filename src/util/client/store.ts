@@ -1,6 +1,6 @@
 import type { ArtistObject, GetRecommendationsQuery, TrackObject } from 'spotify-api-types';
 import { create } from 'zustand';
-import { type RecommendedTrack } from './utils';
+import type { RecommendedTrack } from '../RecommendedTrack';
 
 interface ArtistStore {
 	selectedArtists: Array<ArtistObject>;

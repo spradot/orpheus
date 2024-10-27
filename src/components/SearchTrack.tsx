@@ -1,7 +1,7 @@
 'use client';
 
 import { type ApiTracksResponse } from '@/app/api/tracks/route';
-import { useZustandStore } from '@/util/store';
+import { useZustandStore } from '@/util/client/store';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { MdExplicit } from 'react-icons/md';

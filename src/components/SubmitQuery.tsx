@@ -1,7 +1,7 @@
 'use client';
 
 import { type ApiPostRecommendationsResponse } from '@/app/api/recommendations/route';
-import { type RawTrackAttributeValue, useZustandStore } from '@/util/store';
+import { type RawTrackAttributeValue, useZustandStore } from '@/util/client/store';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { GetRecommendationsQuery } from 'spotify-api-types';

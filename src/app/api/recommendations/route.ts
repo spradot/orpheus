@@ -1,4 +1,5 @@
-import { createBase64Id, getAccessToken, RecommendedTrack, redis } from '@/util/utils';
+import { RecommendedTrack } from '@/util/RecommendedTrack';
+import { createBase64Id, getAccessToken, redis } from '@/util/server';
 import type { GetRecommendationsQuery, GetRecommendationsResponse, TrackObject } from 'spotify-api-types';
 
 export interface RecommendedationData {

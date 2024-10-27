@@ -1,5 +1,5 @@
 'use client';
-import { useZustandStore } from '@/util/store';
+import { useZustandStore } from '@/util/client/store';
 import type { GetRecommendationGenresResponse } from 'spotify-api-types';
 
 export function SearchGenre({ genres }: { genres: GetRecommendationGenresResponse['genres'] }) {
