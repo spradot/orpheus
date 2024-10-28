@@ -11,21 +11,14 @@ export function Navbar() {
 			</div>
 			<div className='flex flex-row gap-x-5'>
 				<a
-					href='https://github.com/iShibi'
-					title='github.com/iShibi'
+					href='https://github.com/iShibi/orpheus'
+					title='github.com/iShibi/orpheus'
 					target='_blank'
 					rel='noopener noreferrer'
-					className=''
 				>
 					<BsGithub className='h-8 w-8' />
 				</a>
-				<a
-					href='https://twitter.com/iShiibi'
-					title='twitter.com/iShiibi'
-					target='_blank'
-					rel='noopener noreferrer'
-					className=''
-				>
+				<a href='https://twitter.com/iShiibi' title='twitter.com/iShiibi' target='_blank' rel='noopener noreferrer'>
 					<FaXTwitter className='h-8 w-8' />
 				</a>
 			</div>
