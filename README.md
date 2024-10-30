@@ -6,4 +6,4 @@ All recommended tracks are linked directly to Spotify, so a song starts playing 
 
 ### Demo
 
-<video controls src="Bags.mp4" title="Orpheus Demo"></video>
+[![Orpheus Demo (Bags)](https://img.youtube.com/vi/MOeY1mjO54w/0.jpg)](https://www.youtube.com/watch?v=MOeY1mjO54w)
